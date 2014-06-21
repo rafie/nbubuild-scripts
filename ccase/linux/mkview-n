@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $name = shift;
+my $user = $ENV{USER};
+my $group = "rvccgrp01"; # 39032
+
+my $host = "rvil-ccav";
+my $win_region = "ccav_win";
+my $unix_region = "ccav_unix";
+my $views_dir = "/net/rvnx-bronze/CC_AV/views";
+# my $views_windir = "\\\\\\\\rvnx-bronze.global.avaya.com\\\\CC_AV\\\\views";
+my $views_windir = "//rvnx-bronze.global.avaya.com/CC_AV/views";
+
+my $ccdir = "/opt/ibm/RationalSDLC/clearcase/linux_x86";
+my $ct = "$ccdir/bin/cleartool";
+
+my $tag = "${user}_$name";
+my $view_dir = "$views_dir/$tag.vws";
+my $view_windir = "$views_windir/$tag.vws";
+$view_windir =~ s/\//\\\\/g;
+
+die "Cannot create view as root. Aborting.\n" if $user eq "root";
+die "Cannot find view storage directory. Aborting.\n" if ! -d $views_dir;
+
+puts("$ct mkview -tag $tag -tmode transparent -region $unix_region -host $host -hpath $view_dir -gpath $view_dir $view_dir");
+puts("$ct mktag -view -tag $tag -reg $win_region -host $host -gpath $view_windir $view_dir");
+puts("$ct endview -server $tag");
+
+puts("$ccdir/etc/utils/fix_prot -force -r -chown $user -chgrp $group -chmod 775 $view_dir");
+puts("$ccdir/etc/utils/fix_prot -force -root -chown $user -chgrp $group $view_dir");
+
+sub puts
+{
+	my ($s) = @_;
+	print "$s\n";
+}
+
+1;

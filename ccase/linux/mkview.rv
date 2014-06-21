@@ -1,0 +1,111 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $host = "rvil-ccav";
+my $win_region = "ccav_win";
+my $unix_region = "ccav_unix";
+my $views_dir = "/net/rvnx-bronze/CC_AV/views";
+# my $views_windir = "\\\\\\\\rvnx-bronze.global.avaya.com\\\\CC_AV\\\\views";
+my $views_windir = "//rvnx-bronze.global.avaya.com/CC_AV/views";
+
+my $ccdir = "/opt/ibm/RationalSDLC/clearcase/linux_x86";
+my $ct = "$ccdir/bin/cleartool";
+
+my $user = $ENV{USER};
+my $group = "rvccgrp01"; # 39032
+
+my $name;
+my $raw_flag = 0;
+our $nop_flag = 0;
+
+while (@ARGV)
+{
+	my $a = $ARGV[0];
+	if ($a eq '-name')
+	{
+		shift;
+		$name = shift;
+	}
+	elsif ($a eq '-raw')
+	{
+		shift;
+		$raw_flag = 1;
+	}
+	elsif ($a eq '-n')
+	{
+		shift;
+		$nop_flag = 1;
+	}
+	else
+	{
+		last if ! other_options($a);
+	}
+}
+
+$name = shift if !$name;
+
+die "error: view name not specified.\n" if ! $name;
+my $tag = ($raw_flag ? "" : $user . "_") . $name;
+
+my $view_dir = "$views_dir/$tag.vws";
+my $view_windir = "$views_windir/$tag.vws";
+$view_windir =~ s/\//\\\\/g;
+
+die "Cannot create view as root. Aborting.\n" if $user eq "root";
+die "Cannot find view storage directory. Aborting.\n" if ! -d $views_dir;
+
+_system("$ct mkview -tag $tag -tmode transparent -region $unix_region -host $host -hpath $view_dir -gpath $view_dir $view_dir");
+_system("$ct mktag -view -tag $tag -reg $win_region -host $host -gpath $view_windir $view_dir");
+_system("$ct endview -server $tag");
+
+_system("$ccdir/etc/utils/fix_prot -force -r -chown $user -chgrp $group -chmod 775 $view_dir");
+_system("$ccdir/etc/utils/fix_prot -force -root -chown $user -chgrp $group $view_dir");
+
+print "view $tag created.\n" if !$nop_flag;
+exit(0);
+
+sub other_options
+{
+	my ($a) = @_;
+	
+	if ($a eq '-h' || $a eq '-help')
+	{
+		::print_help();
+		exit(1);
+	}
+	elsif ($a eq '-v' || $a eq '-version')
+	{
+		print_version();
+		exit(1);
+	}
+	elsif ($a eq '--')
+	{
+		shift @::ARGV;
+		return 0;
+	}
+	elsif ($a =~ '^-')
+	{
+		die "$a: invalid argument\n";
+	}
+	else
+	{
+		return 0;
+	}
+	
+	return 1;
+}
+
+sub _system
+{
+	my ($cmd) = @_;
+	
+	if ($nop_flag)
+	{
+		print "$cmd\n";
+		return 0;
+	}
+	
+	system($cmd);
+	return $? == -1 ? -1 : ($? >> 8);
+}

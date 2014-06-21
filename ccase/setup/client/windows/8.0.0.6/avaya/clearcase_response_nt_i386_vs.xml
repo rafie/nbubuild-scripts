@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent-input rebootLater='true'>
+
+	<server>
+		<repository location='\\storage.radvision.com\Software\Rational_new_app\ClearCase8.0\disk1\diskTag.inf' />
+		<repository location='\\storage.radvision.com\NBU\Build\pkg\dev\clearcase\product\windows\8.0.0.6\8.0.0.6-Rational-RCC-WIN-FP06' />
+
+		<!--
+		<repository location='http://public.dhe.ibm.com/software/rationalsdp/team/v80/cc/nt_i386/updates/'/>
+		<repository location='http://public.dhe.ibm.com/software/rationalsdp/team/v80/cc/nt_i386/extensions/'/>
+		<repository location='http://public.dhe.ibm.com/software/rationalsdp/team/v80/ccrc/updates/'/>
+		-->
+	</server>
+
+	<preference name='com.ibm.cic.common.core.preferences.eclipseCache' value='C:\Program Files (x86)\IBM\IMShared' />
+	<preference name='com.ibm.cic.common.core.preferences.preserveDownloadedArtifacts' value='true' />
+	<preference name='offering.service.repositories.areUsed' value='true' />
+
+	<profile id='IBM Rational SDLC' installLocation='C:\Program Files (x86)\IBM\RationalSDLC'>
+		<data key='cic.selector.nl' value='en' />
+		<data key='eclipseLocation' value='C:\Program Files (x86)\IBM\RationalSDLC' />
+		<data key='user.ATRIA_HOST_IS_REMOTE,com.ibm.rational.clearcase.nt_i386' value='true' />
+		<data key='user.ATRIA_LOCAL_KEY,com.ibm.rational.clearcase.nt_i386' value=''/>
+		<data key='user.CC_CCExplorerContextMenuCustomMenu,com.ibm.rational.clearcase.nt_i386' value='false'/>
+		<data key='user.CC_CCExplorerContextMenuLocation,com.ibm.rational.clearcase.nt_i386' value=''/>
+		<data key='user.CC_CCExplorerCreateShortcut,com.ibm.rational.clearcase.nt_i386' value='true' />
+		<data key='user.CC_CCExplorerToolShortcutsLocation,com.ibm.rational.clearcase.nt_i386' value=''/>
+		<data key='user.CC_CCExplorerToolShortcutsUseShortcut,com.ibm.rational.clearcase.nt_i386' value='false' />
+		<data key='user.CC_CCRCServerTempDir,com.ibm.rational.clearcase.nt_i386' value='C:/temp/ccrctemp' />
+		<data key='user.CC_DynamicViewsDriveLetter,com.ibm.rational.clearcase.nt_i386' value='M' />
+		<data key='user.CC_EnableCCFS,com.ibm.rational.clearcase.nt_i386' value='1' />
+		<data key='user.CC_GMHostname,com.ibm.rational.clearcase.nt_i386' value='itmmachine' />
+		<data key='user.CC_GMLocation,com.ibm.rational.clearcase.nt_i386' value='C:\IBM\ITM' />
+		<data key='user.CC_GMPort,com.ibm.rational.clearcase.nt_i386' value='1918' />
+		<data key='user.CC_LICENSE_MANAGER,com.ibm.rational.clearcase.nt_i386' value='ATRIA' />
+		<data key='user.CC_MVFSCIFlag,com.ibm.rational.clearcase.nt_i386' value='3' />
+		<data key='user.CC_MVFSCaseInsensitivity,com.ibm.rational.clearcase.nt_i386' value='1'/>
+		<data key='user.CC_MVFSCasePreserved,com.ibm.rational.clearcase.nt_i386' value='1'/>
+		<data key='user.CC_MaxNumMnodesKeepOnCleartextFreeList,com.ibm.rational.clearcase.nt_i386' value='1800' />
+		<data key='user.CC_MaxNumMnodesKeepOnVOBFreeList,com.ibm.rational.clearcase.nt_i386' value='1800' />
+		<data key='user.CC_RegSMTPHostName,com.ibm.rational.clearcase.nt_i386' value='mymailserver.mydomain.com' />
+		<data key='user.CC_RemoteAdministrationAccess,com.ibm.rational.clearcase.nt_i386' value='0' />
+		<data key='user.CC_ScalingFactor,com.ibm.rational.clearcase.nt_i386' value='5' />
+		<data key='user.Ccrc_EnableWasSecurity' value='false'/>
+		<data key='user.Ccrc_ProfileChoice' value='new'/>
+		<data key='user.Ccrc_ServerChoice' value='WebSphere:cell=dfltCell,node=dfltNode,server=server1'/>
+		<data key='user.Ccrc_WasInstallLocation' value='C:\Program Files (x86)\IBM\WebSphere\AppServer'/>
+		<data key='user.Ccrc_WasProfileLocation' value='C:\Program Files (x86)\IBM\RationalSDLC\common\ccrcprofile'/>
+		<data key='user.Ccrc_WasProfileName' value='ccrcprofile'/>
+		<data key='user.IHS_ConfFile' value='C:\Program Files (x86)\IBM\HTTPServer\conf\httpd.conf' />
+		<data key='user.IHS_Configuration' value='automatic' />
+		<data key='user.IHS_PluginPath' value='C:\Program Files (x86)\IBM\HTTPServer\Plugins\config\webserver1\plugin-cfg.xml' />
+		<data key='user.IHS_ServerRoot' value='C:\Program Files (x86)\IBM\HTTPServer' />
+		<data key='user.IHS_WebServId' value='webserver1' />
+		<data key='user.RCL_PortAtHost' value='27000@ss1' />
+		<data key='user.StopRunningProcesses' value='true'/>
+		<data key='user.Team_Conv_InstallDirectory' value='C:/Program Files (x86)/IBM/RationalSDLC' />
+		<data key='user.VS2005DevEnvPath' value='C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\IDE\'/>
+		<data key='user.VS2008DevEnvPath' value='C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\'/>        
+		<data key='user.VS2010DevEnvPath' value='C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\'/>
+
+		<data key='user.ATRIA_REMOTE_HOSTNAME,com.ibm.rational.clearcase.nt_i386' value='rvil-ccav' />
+		<data key='user.CC_AccountDomain,com.ibm.rational.clearcase.nt_i386' value='GLOBAL' />
+		<data key='user.CC_AdminGroup,com.ibm.rational.clearcase.nt_i386' value='GLOBAL\clearcase_service' />
+		<data key='user.CC_RegSvrHostName,com.ibm.rational.clearcase.nt_i386' value='rvil-ccav.emea.avaya.com' />
+		<data key='user.CC_RegUNIXRegionName,com.ibm.rational.clearcase.nt_i386' value='ccav_unix' />
+		<data key='user.CC_RegWinRegionName,com.ibm.rational.clearcase.nt_i386' value='ccav_win' />
+		<data key='user.CC_ServerProcessPassword,com.ibm.rational.clearcase.nt_i386' value='D7FLUZmow++73y3hFgZ4ng=='/>
+		<data key='user.CC_ServerProcessUserID,com.ibm.rational.clearcase.nt_i386' value='ccalbd02' />
+	</profile>
+
+	<install>
+		<offering id='com.ibm.rational.clearcase.nt_i386' profile='IBM Rational SDLC' 
+			features='
+				com.ibm.rational.clearcase.top,
+				com.ibm.rational.clearcase.ctexplorer,
+				com.ibm.rational.clearcase.mvfs,
+				com.ibm.rational.clearcase.local.views.vobs,
+				com.ibm.rational.clearcase.multisite,
+				com.ibm.rational.clearcase.cmlib.doc,
+				com.ibm.rational.clearcase.vsnet
+				'/>
+	</install>
+
+</agent-input>
+

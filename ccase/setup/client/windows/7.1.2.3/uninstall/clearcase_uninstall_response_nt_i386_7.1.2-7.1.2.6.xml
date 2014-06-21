@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<agent-input rebootLater='true'>
+
+    <profile installLocation='C:\Program Files (x86)\IBM\RationalSDLC' id='IBM Rational SDLC'>
+        <data key='user.StopRunningProcesses' value='false'/>
+        <data key='user.CQ_ReportalWASUsername' value='username'/>
+        <data key='user.CQ_ReportalWASPassword' value='password'/>
+    </profile>
+
+	<uninstall modify='false'>
+		<offering  id='com.ibm.rational.clearcase.nt_i386' profile='IBM Rational SDLC' 
+			features='
+				com.ibm.rational.ccrc.web.server,
+				com.ibm.rational.clearcase.antivirus.feature,
+				com.ibm.rational.clearcase.check.processes.feature,
+				com.ibm.rational.clearcase.checkcq.shipping.server.feature,
+				com.ibm.rational.clearcase.cmlib.doc,
+				com.ibm.rational.clearcase.gm,
+				com.ibm.rational.clearcase.lkad.removal.warning.feature,
+				com.ibm.rational.clearcase.local.views.vobs,
+				com.ibm.rational.clearcase.multisite,
+				com.ibm.rational.clearcase.mvfs,  
+				com.ibm.rational.clearcase.top,  
+				com.ibm.rational.clearcase.view.server,
+				com.ibm.rational.clearcase.vob.server,
+				com.ibm.rational.clearcase.vsnet,
+				com.ibm.rational.clearcase.zos,
+				com.ibm.rational.clearcsae.checkOS.feature,
+				com.ibm.rational.clearcsae.checkv7.feature
+				'/>    
+
+		<!-- offering id='com.ibm.rational.clearcase.rc' profile='IBM Rational SDLC'
+			features='
+				com.ibm.ccrc.core
+				'/-->
+	</uninstall>
+
+</agent-input>

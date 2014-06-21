@@ -1,0 +1,51 @@
+#!/bin/csh -f
+
+set ct=/opt/rational/clearcase/bin/cleartool
+
+$ct mount /vobs/adapters
+$ct mount /vobs/boardInfra
+$ct mount /vobs/bsp755
+$ct mount /vobs/bsp8548
+$ct mount /vobs/bsp8144
+$ct mount /vobs/bspLinux8548
+$ct mount /vobs/bspLinuxIntel
+$ct mount /vobs/configInfra
+$ct mount /vobs/dialingInfo
+$ct mount /vobs/dpm
+$ct mount /vobs/dsp8144Audio
+$ct mount /vobs/dsp8144Video
+$ct mount /vobs/dspC64Audio
+$ct mount /vobs/dspC64Video
+$ct mount /vobs/dspInfra
+$ct mount /vobs/dspIntelInfra
+$ct mount /vobs/dspUCGW
+$ct mount /vobs/freemasonBuild
+$ct mount /vobs/loggerInfra
+$ct mount /vobs/map
+$ct mount /vobs/mcu
+$ct mount /vobs/mediaCtrlInfo
+$ct mount /vobs/megacoOld
+$ct mount /vobs/mf
+$ct mount /vobs/mpc
+$ct mount /vobs/mpInfra
+$ct mount /vobs/mpDsp
+$ct mount /vobs/mvp
+$ct mount /vobs/nbu.contrib
+$ct mount /vobs/nbu.proto.jingle-stack
+$ct mount /vobs/NBU_COMMON_CORE
+$ct mount /vobs/NBU_FEC
+$ct mount /vobs/NBU_H323_STACK
+$ct mount /vobs/NBU_ICE
+$ct mount /vobs/NBU_RTP_RTCP_STACK
+$ct mount /vobs/NBU_SCCP_STACK
+$ct mount /vobs/NBU_SIP_STACK
+$ct mount /vobs/rvfc
+$ct mount /vobs/securityApp
+$ct mount /vobs/securityInfra
+$ct mount /vobs/swInfra
+$ct mount /vobs/upgradeUtility
+$ct mount /vobs/users
+$ct mount /vobs/web
+$ct mount /vobs/swVideoCodecs
+
+$ct mount /vobs/TBU_PVOB_2

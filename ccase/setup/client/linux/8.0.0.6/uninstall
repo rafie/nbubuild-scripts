@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $root = "/mnt/rvnbu/Build/tmp/ccase-linux";
+my $imver = "1.4.2";
+my $ccver = "7.1.2";
+
+my $response_file = "$root/uninstall_response.xml";
+
+chdir("/opt/IBM/InstallationManager/eclipse");
+system("./IBMIM --launcher.ini silent-install.ini -ShowVerboseProgress -input $response_file");
+chdir("/var/ibm/InstallationManager/uninstall");
+system("./uninstall --launcher.ini silent-uninstall.ini");

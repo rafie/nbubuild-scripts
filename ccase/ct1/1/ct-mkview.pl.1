@@ -1,0 +1,394 @@
+
+use strict;
+use Scaffolds::System;
+use Scaffolds::Command;
+
+use Sys::Hostname;
+use File::Basename;
+use Win32::Lanman;
+use Win32::Registry;
+
+our $VERSION = "1.0.0";
+
+our $nop_flag = 0;
+our $verbose_flag = 0;
+
+my $name;
+my $raw_flag = 0;
+my $dyn_flag = 1;
+my $on_server_flag = 0;
+my $global_stg_flag = 0;
+my $configspec;
+my $mcuver;
+my $user = $ENV{USERNAME};
+
+my $global_host = "rvil-ccview";
+my $global_stgloc = "\\\\rvil-ccview\\ccase\\views";
+
+my $mcu_versions = "r:/Mcu_Ngp/Versions_8.X/V8.0/Versions";
+
+our $putty_path = "r:/Mcu_Ngp/Utilities/Putty";
+
+while (@ARGV)
+{
+	my $a = $ARGV[0];
+	if ($a eq '-name')
+	{
+		shift;
+		$name = shift;
+	}
+	elsif ($a eq '-raw')
+	{
+		shift;
+		$raw_flag = 1;
+	}
+	elsif ($a eq '-dyn' || $a eq '-dynamic')
+	{
+		shift;
+		$dyn_flag = 1;
+	}
+	elsif ($a eq '-snap' || $a eq '-snapshot')
+	{
+		shift;
+		$dyn_flag = 0;
+		die "Snapshot views are not supported.\n";
+	}
+	elsif ($a eq '-global')
+	{
+		shift;
+		$global_stg_flag = 0; # disabled
+	}
+	elsif ($a eq '-server')
+	{
+		shift;
+		$on_server_flag = 1;
+	}
+	elsif ($a eq '-spec')
+	{
+		shift;
+		$configspec = shift;
+	}
+	elsif ($a eq '-mcu')
+	{
+		shift;
+		$mcuver = shift;
+	}
+	elsif ($a eq '-v' || $a eq '-verbose')
+	{
+		shift;
+		$verbose_flag = 1;
+	}
+	elsif ($a eq '-n')
+	{
+		shift;
+		$nop_flag = 1;
+	}
+	else
+	{
+		last if ! other_options($a);
+	}
+}
+
+$name = "mcu_$mcuver" if !$name && $mcuver;
+
+die "error: view name not specified.\n" if ! $name;
+my $tag = ($raw_flag ? "" : $user . "_") . $name;
+
+my $mcu_cspec;
+if ($mcuver)
+{
+	$mcu_cspec = "${mcu_versions}/$mcuver/configspec.txt"; 
+	die "error: invalid mcu version: $mcuver.\n" if ! -f $mcu_cspec;
+	
+	$configspec = $mcu_cspec if !$configspec;
+}
+
+die "error: invalid configspec.\n" if $configspec && ! -f $configspec;
+
+my ($stg, $lstg, $gstg);
+if (! $on_server_flag)
+{
+	if (! $global_stg_flag)
+	{
+		$stg = find_stgloc();
+		die "error: failed to determine storage location\n" if ! keys %$stg;
+		$lstg = $stg->{local};
+		$gstg = $stg->{global};
+	}
+	else
+	{
+		$stg = $lstg = $gstg = $global_stgloc;
+	}
+}
+
+die "error: view exists.\n" if -d "$lstg\\$tag.vws";
+
+my $unix_region = "radvision";
+my $win_region = "radvision_nt";
+
+my ($region, $host);
+if (! $on_server_flag)
+{
+	$region = $win_region;
+	$host = lc(hostname);
+}
+else
+{
+	$region = $unix_region;
+	$host = "rvil-ccview";
+}
+
+our $rexec = "$putty_path/plink-batch -agent -l $user $host";
+
+if (! $on_server_flag)
+{
+	my $mkview = execute("cleartool mkview -tag $tag -tmode unix -region $region -shareable_dos " . 
+		"-host $host " . 
+		"-hpath $lstg\\$tag.vws -gpath $gstg\\$tag.vws $lstg\\$tag.vws",
+		"cannot create view");
+}
+else
+{
+	my $unix_path = "/cm/views/NBU/$tag.vws";
+	my $unc_path = "'\\\\'$host'\\cm\\views\\NBU\\'$tag.vws";
+
+	my $unix_ct = "/opt/rational/clearcase/bin/cleartool";
+	my $unix_fixprot = "/opt/rational/clearcase/linux_x86/etc/utils/fix_prot";
+	my $unix_group = "rvil_ccusers";
+
+	my $mkview = rexecute("$unix_ct mkview " .
+		"-tag $tag " .
+		"-tmode transparent " .
+		"-region $unix_region " .
+		"-host $host " .
+		"-hpath $unix_path " .
+		"-gpath $unix_path " .
+		"$unix_path",
+		"cannot create view on server");
+
+	# create view tag in windows region	
+	my $mktag = rexecute("$unix_ct mktag -view " .
+		"-tag $tag " .
+		"-reg $win_region " .
+		"-host $host " .
+		"-gpath $unc_path " .
+		"$unix_path",
+		"cannot create windows view tag on server", 0);
+	rollback_and_abort() if ! $nop_flag && $mktag->retcode;
+
+	my $mkview = rexecute("$unix_ct endview -server $tag");
+
+	my $fix_prot = rexecute("$unix_fixprot -force -r -chown $user -chgrp $unix_group -chmod 775 $unix_path", 
+		"cannot setup view permissions on server", 0);
+	rollback_and_abort() if ! $nop_flag && $fix_prot->retcode;
+	
+	$fix_prot = rexecute("$unix_fixprot -force -root -chown $user -chgrp $unix_group $unix_path", 
+		"cannot setup view permissions on server", 0);
+	rollback_and_abort() if ! $nop_flag && $fix_prot->retcode;
+
+	my $startview = execute("cleartool startview $tag", "cannot start view", 0);
+	rollback_and_abort() if ! $nop_flag && $startview->retcode;
+}
+
+if ($configspec)
+{
+	my $setcs = execute("cleartool setcs -tag $tag $configspec", "cannot set configspec", 0);
+	rollback_and_abort() if ! $nop_flag && $setcs->retcode;
+}
+
+print "view $tag created.\n" if ! $on_server_flag;
+
+#----------------------------------------------------------------------------------------------
+
+sub find_stgloc
+{
+	my $stg = find_in_reg();
+	return $stg if keys %$stg;
+	$stg = find_local_view();
+	return $stg if keys %$stg;
+	$stg = make_stgloc();
+	return $stg if keys %$stg;
+	return {};
+}
+
+#----------------------------------------------------------------------------------------------
+
+sub print_stgloc
+{
+	my ($stg) = @_;
+	return if ! keys %$stg;
+	print "local: " . $stg->{local} . "\n";
+	print "global: " . $stg->{global} . "\n";
+}
+
+#----------------------------------------------------------------------------------------------
+
+sub find_in_reg
+{
+	my ($locstg, $globstg);
+
+	my $key;
+	my %values;
+	$HKEY_CURRENT_USER->Open("Software\\Atria\\ClearCase\\CurrentVersion\\clearviewtool", $key) or return {};
+	$key->GetValues(\%values);
+	$globstg = $values{"Last View Dir"}->[2];
+	$key->Close();
+	return {} if ! $globstg;
+
+	my ($share, $share_path) = get_share_name($globstg);
+	my $net_share = new Scaffolds::System("net share $share");
+	foreach ($net_share->out)
+	{
+		$locstg = $1 if /Path *(.*)/;
+	}
+	return {} if ! $locstg;
+	return { local => $locstg . "\\$share_path", global => $globstg };
+}
+
+#----------------------------------------------------------------------------------------------
+
+sub get_share_name
+{
+	my ($d) = @_;
+	my @p;
+	my $d1;
+	while (1)
+	{
+		$d1 = $d;
+		$d = dirname($d);
+		last if $d eq $d1;
+		push @p, basename($d1);
+	}
+	@p = reverse(@p);
+	my $host = $p[0];
+	my $share = $p[1];
+	shift @p;
+	shift @p;
+	return ($share, join("\\", @p));
+}
+
+#----------------------------------------------------------------------------------------------
+
+sub find_local_view
+{
+	my $localhost = lc(hostname);
+	my $lsview = new Scaffolds::System("cleartool lsview -short -quick -host $localhost");
+	my $view = $lsview->out(0);
+	return {} if ! $view;
+	my $lsview = new Scaffolds::System("cleartool lsview -long $view");
+	my ($locstg, $globstg);
+	foreach ($lsview->out)
+	{
+		$globstg = $1 if /Global path\: (.*)/;
+		$locstg = $1 if /View server access path\: (.*)/;
+	}
+	
+	return {} if !$locstg || !$globstg;
+
+	$globstg = dirname($globstg);
+	$locstg = dirname($locstg);
+	return { local => $locstg, global => $globstg };
+}
+
+#----------------------------------------------------------------------------------------------
+
+sub make_stgloc
+{
+	my $host = lc(hostname);
+	my $locstg = "c:\\ccstg";
+	my $globstg = "\\\\$host\\ccstg";
+
+	my $stg_exists = 0;
+	mkdir($locstg) or $stg_exists = 1;
+
+	if (! $stg_exists)
+	{
+		Win32::Lanman::NetShareAdd("\\\\$host",
+			{	netname => 'ccstg',
+				type => Win32::Lanman::STYPE_DISKTREE,
+				remark => 'ClearCASE Views Storage',
+				permissions => 0,
+				max_uses => -1,
+				path => $locstg}) or return {};
+	}
+	
+	return { local => $locstg, global => $globstg };
+}
+
+#----------------------------------------------------------------------------------------------
+
+sub rollback_and_abort
+{
+	my $rmview = execute("cleartool rmview -tag $tag", "cannot set configspec");
+	die "aborting.\n";
+}
+
+#----------------------------------------------------------------------------------------------
+
+sub execute
+{
+	my ($cmd, $err, $abort_on_fail) = @_;
+	$abort_on_fail = 1 if ! defined $abort_on_fail;
+	if (! $nop_flag)
+	{
+		my $c = new Scaffolds::System($cmd);
+		if ($c->retcode)
+		{
+			print STDERR $c->errText() if $verbose_flag;
+			if ($abort_on_fail)
+			{
+				die "error: $err\n";
+			}
+			else
+			{
+				print STDERR "error: $err\n";
+			}
+		}
+		return $c;
+	}
+	else
+	{
+		print "$cmd\n";
+		return 1;
+	}
+}
+
+#----------------------------------------------------------------------------------------------
+
+sub rexecute
+{
+	my ($cmd, $err, $abort_on_fail) = @_;
+	$cmd = "$rexec \"$cmd\"";
+	return execute($cmd, $err, $abort_on_fail);
+}
+
+#----------------------------------------------------------------------------------------------
+
+sub print_help
+{
+	print <<END;
+Create a view.
+
+usage:
+ct1 mkview [-name <name>] [-raw] [-spec <file>] [-mcu <version>] [-dynamic | -snapshot] [-server] [-n]
+ct1 mkview [-h | -help | -v | -version]
+
+options:
+  -name <name>   view name
+  -raw           don't add username prefix to view name
+  -spec <file>   configspec file
+  -mcu <ver>     create view for mcu version <ver> 
+                  (take configspec from r:\Mcu_Ngp\Versions_8.X\V8.0\Versions)
+  -dynamic       create dynamic view (default)
+  -snapshot      create snapshot view
+  -server        create view on server (rvil-ccview) [*]
+  -n             do nothing, just print commands
+  -h             print this message
+  -v             print version
+
+[*] Creating a view on the server requires one to enter their password.
+    It is possible to automate the process and aviod the password prompt.
+    For more information, search http://nbuwiki for ct-mkview.
+END
+}
+

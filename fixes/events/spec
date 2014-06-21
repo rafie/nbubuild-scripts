@@ -1,0 +1,16 @@
+logoff=${events}/logoff
+logon=${events}/logon
+shutdown=${events}/shutdown
+startup=${events}/startup
+
+logoff.bat=${events}/logoff.bat
+logon.bat=${events}/logon.bat
+shutdown.bat=${events}/shutdown.bat
+startup.bat==${events}/startup.bat
+
+event.bat=${events}/event.bat
+
+GroupPolicy/startup.bat=${GroupPolicy}/Machine/Scripts/Startup/startup.bat
+GroupPolicy/shutdown.bat=${GroupPolicy}/Machine/Scripts/Shutdown/shutdown.bat
+GroupPolicy/logon.bat=${GroupPolicy}/User/Scripts/Logon/logon.bat
+GroupPolicy/logoff.bat=${GroupPolicy}/User/Scripts/Logoff/logoff.bat

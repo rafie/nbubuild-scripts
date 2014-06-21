@@ -1,0 +1,5 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings]
+"AutoConfigURL"="http://pac.zscaler.net/avaya.com/inet"
+"ProxyEnable"=dword:00000000

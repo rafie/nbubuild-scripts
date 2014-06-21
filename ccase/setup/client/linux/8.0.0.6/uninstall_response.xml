@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<agent-input rebootLater='true'>
+	<uninstall modify='false'>
+		<offering id='com.ibm.rational.clearcase.linux_x86' profile='IBM Rational SDLC' />
+	</uninstall>
+</agent-input>

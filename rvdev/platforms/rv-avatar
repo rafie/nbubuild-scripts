@@ -1,0 +1,4 @@
+#!/usr/bin/perl
+
+print "rv-avatar platform environment\n";
+exit system($ENV{SHELL});

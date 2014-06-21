@@ -1,0 +1,1 @@
+@call ${local}\logon.bat

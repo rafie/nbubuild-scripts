@@ -1,0 +1,13 @@
+#!/bin/csh -f
+
+ln -sf ../text_file_delta/annotate                 annotate
+ln -sf ../text_file_delta/compare                  compare
+ln -sf ../text_file_delta/construct_version        construct_version
+ln -sf ../text_file_delta/create_branch            create_branch
+ln -sf ../text_file_delta/create_element           create_element
+ln -sf ../text_file_delta/create_version           create_version
+ln -sf ../text_file_delta/delete_branches_versions delete_branches_versions
+ln -sf ../text_file_delta/get_cont_info            get_cont_info
+ln -sf ../text_file_delta/merge                    merge
+ln -sf ../text_file_delta/xcompare                 xcompare
+ln -sf ../text_file_delta/xmerge                   xmerge

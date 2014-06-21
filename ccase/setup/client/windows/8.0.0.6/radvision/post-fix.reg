@@ -1,0 +1,8 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Atria\ClearCase\CurrentVersion]
+"AtriaRegy"="rvil-ccrgy"
+"ClearCaseGroupName"="RADVISION\\clearcase"
+"InteropRegion"="radvision"
+"Region"="radvision_nt"
+"LicenseHost"="rvil-ccav"

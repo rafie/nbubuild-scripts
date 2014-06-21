@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+
+my $platform = "rv-avatar";
+my $rvnbu = "172.20.2.81:/Storage/NBU";
+
+my $root = "/mnt/rvnbu";
+
+mkdir("$root") or die "cannot create $root\n" if ! -d "$root";
+if (! `mount` =~ /rvnbu/)
+{
+        system("mount $rvnbu $root > /dev/null 2>&1") and die "cannot mount rvnbu. aborting.\n";
+}
+
+exit system("$root/Build/sys/scripts/rvdev/rvdev --platform $platform");

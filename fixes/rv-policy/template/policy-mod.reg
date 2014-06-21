@@ -1,0 +1,13 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Control Panel\Desktop]
+"ScreenSaveActive"="0"
+"SCRNSAVE.EXE"="logon.scr"
+"ScreenSaverIsSecure"="0"
+"ScreenSaveTimeOut"="0"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU]
+"AUOptions"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"EnableLinkedConnections"=dword:00000001

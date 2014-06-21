@@ -1,0 +1,6 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\Software\Atria\ClearCase\CurrentVersion]
+"NoPersistentVOBPopup"=dword:00000001
+"CheckinPreserveTime"=dword:00000001
+"CheckoutPreserveTime"=dword:00000001

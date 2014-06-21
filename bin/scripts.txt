@@ -1,0 +1,68 @@
+>>> NBU Development Environment Scripts
+
+Information:
+
+  gg                      Google search
+  scripts                 Show list of available scripts
+  wiki                    NBU Wiki search
+
+Especially useful:
+
+  jor                     Run commands with long command lines
+  mk, mk1                 Invoke Freemason
+  pe                      Process Explorer
+  procmon                 Process Monitor
+  rdesk                   Remote Desktop Connection
+  regw                    Registry Workshop
+  rvroot                  Gain superpowers!
+  se                      Set Environment
+  stop-auto-updates       Stop Automatic Updates service
+
+Applications:
+
+  bart                    Run BART tests
+  sta                     Run static analysis (Klocwork) test
+
+Text:
+
+  coin                    Create file set from a template
+  e                       Default editor (usually UltraEdit)
+  gdiff                   BeyondCompare
+
+File Transfer:
+
+  rvscp                   Copy files to remote host
+  rsync                   File synchronization
+  tftpd                   Launch tftp server (root=c:\tftfpd)
+
+Shells:
+
+  tcc                     Take Command
+  tcmd                    Total Commaner
+
+ClearCASE-related:
+
+  ct                      cleartool shortcut
+  ct1                     Extended ClearCASE commands
+  mount-nbu-vobs          Mount VOBs used by NBU
+  tt                      Confetti commands
+
+Development:
+  #dev                    Invoke #develop IDE (.NET)
+  bart                    Run BART test
+  cs                      Run a C# file (yes! no compiler!)
+
+License manager:
+
+  restart-license-server  Restart FlexLM license server
+  show-lm-users           Show concurrent FlexLM users
+
+Others:
+
+  curl                    Invoke curl (http client)
+  dotty                   Draw a .dot graph
+  dot-jpg                 Draw a .dot graph into .jpg file
+  dumpreg.pl              Registry dump
+  mgrep                   Multi-line grep
+  xpath                   XPath (XML) query
+  xmllink                 Checks XML file for correctness

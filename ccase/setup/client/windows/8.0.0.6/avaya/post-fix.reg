@@ -1,0 +1,8 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Atria\ClearCase\CurrentVersion]
+"AtriaRegy"="rvil-ccav.emea.avaya.com"
+"ClearCaseGroupName"="GLOBAL\\clearcase_service"
+"InteropRegion"="ccav_unix"
+"Region"="ccav_win"
+"LicenseHost"="rvil-ccav"

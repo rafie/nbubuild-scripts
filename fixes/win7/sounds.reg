@@ -1,0 +1,4 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\AppEvents\Schemes]
+@=".None"

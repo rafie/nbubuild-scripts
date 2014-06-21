@@ -1,0 +1,8 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation]
+"Manufacturer"="Devito Standard Workstation"
+"Logo"="C:\\Windows\\System32\\devito.bmp"
+"SupportURL"="http://nbuwiki"
+"Model"="Devito Workstation version 1.0"
+

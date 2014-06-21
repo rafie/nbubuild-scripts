@@ -1,0 +1,6 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Mvfs\Parameters]
+"MvfsViewAttachMup"=dword:00000001
+"MiniFilterMask"=dword:0000020d
+"largeinit"=dword:00000005

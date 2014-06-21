@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+
+# my $rvnbu = "172.20.2.81:/Storage/NBU";
+my $root = "/mnt/rvnbu/Build/sys/scripts/rvdev";
+
+my $platform;
+
+while (@ARGV)
+{
+	my $a = $ARGV[0];
+	if ($a eq '--platform')
+	{
+		shift;
+		$platform = shift;
+	}
+	else
+	{
+		last;
+	}
+}
+
+die "invalid platform: $platform\n" if ! -f "$root/platforms/$platform";
+exit system("$root/platforms/$platform");

@@ -1,0 +1,7 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"ScreenSaveActive"="1"
+"Wallpaper"="C:\\root\\cfg\desktop\\vladstudio_bug_1280x1024.jpg"
+"ScreenSaverIsSecure"="0"
+"WallpaperStyle"="2"

@@ -1,0 +1,226 @@
+@rem ='
+@echo off
+call set-nbu-build-env.bat
+%NBU_BUILD_PERL%\bin\perl.exe -S %0 %*
+goto end
+@rem ';
+#line 8
+
+use strict;
+use Scaffolds::System;
+use Scaffolds::Command;
+use Scaffolds::Console;
+use Scaffolds::Util;
+use Scaffolds::KnownHost;
+
+use Getopt::Long qw(:config require_order);
+use Pod::Usage;
+use Sys::Hostname;
+use File::Basename;
+use XML::Simple;
+
+my $root = $ENV{NBU_BUILD_ROOT};
+my $linux_pgen = "/users/nbubuild/putty/pgen";
+my $plink = "M:/rafie_home/users/rafie/prj/putty-dev/windows/MSVC/plink/Debug/plink.exe";
+my $pageant = "M:/rafie_home/users/rafie/prj/putty-dev/windows/MSVC/pageant/Debug/pageant.exe";
+
+my $nis_host;
+
+my $help;
+my $verbose;
+my $telnet;
+my $ssh;
+my $interactive = 0;
+my $user = $ENV{username};
+my $host;
+my $port;
+my $password;
+my $run_agent;
+my @args;
+
+my $opt = GetOptions (
+	'help|?|h' => \$help,
+	'telnet' => \$telnet,
+	'ssh' => \$ssh,
+	'user=s' => \$user,
+	'interactive' => \$interactive,
+	'P|password=s' => \$password,
+	'run-agent' => \$run_agent,
+	'verbose' => \$verbose,
+	) or pod2usage(-exitstatus => 1, -verbose => 99, -sections => "SYNOPSIS|OPTIONS");
+pod2usage(-exitstatus => 0, -verbose => 2) if $help;
+
+my $user_host_spec = shift;
+if ($user_host_spec =~ /^(\w+)\@(\w+)$/)
+{
+	$user = $1;
+	$host = $2;
+	print "user: $1\n";
+	print "host: $2\n";
+}
+elsif ($user_host_spec =~ /^(\w+)$/)
+{
+	$host = $1;
+	print "host: $1\n";
+}
+else
+{
+	die "host not specified.\n";
+}
+
+my $cmd = join(' ', @ARGV);
+
+my $known_host = new Scaffolds::KnownHost($host);
+if ($known_host)
+{
+	$host = $known_host->hostname;
+	$nis_host = 1 if $known_host->NIS;
+}
+else
+{	
+}
+
+my $rc;
+
+if ($password)
+{
+	$rc = exec_with_cred($user, $password);
+}
+elsif ($nis_host)
+{
+	$rc = exec_with_pageant();
+}
+elsif ($known_host && $known_host->username && $known_host->password)
+{
+	$rc = exec_with_cred($known_host->username, $known_host->password);
+}
+elsif ($interactive)
+{
+	$rc = exec_interactive();
+}
+else
+{
+	die "Error: don't know how to authenticate.\n";
+}
+
+exit($rc);
+
+sub exec_with_cred
+{
+	my ($username, $password) = @_;
+
+	my $rc;
+	system("$plink -batch -l $user -pw $password $host $cmd");
+	$rc = $? == -1 ? -1 : ($? >> 8);
+	return $rc;
+}
+
+sub exec_with_pageant
+{
+	my $pageant_cfg_dir = "$root/usr/$user/cfg/pageant";
+	my $pageant_key_file = "$pageant_cfg_dir/putty.ppk";
+	my $default_password = "Hello";
+	my $pwd;
+	
+	mkdir($pageant_cfg_dir) if ! -d $pageant_cfg_dir;
+	if (-f $pageant_key_file)
+	{
+		# .ppk file found. check if possible to authenticate with agent.
+
+		if (!test_connection())
+		{
+			# run agent and try again
+			run_pageant();
+			die "Something is wrong with pageant.\n" if ! test_connection();
+		}
+	}
+	else
+	{
+		# no .ppk file. will try to craete one.
+		generate_pageant_keys();
+	}
+	
+	my $rc;
+	system("$plink -batch -l $user $host $cmd");
+	$rc = $? == -1 ? -1 : ($? >> 8);
+	return $rc;
+}
+
+sub test_connection
+{
+	my ($password) = @_;
+	
+	my $pwd_spec;
+	$pwd_spec = "-pw $password" if $password;
+	my $cmd = new Scaffolds::System("$plink -batch -l $user $pwd_spec $host echo test", { log => 0 });
+	return !($cmd->retcode || $cmd->out0 ne "test");
+}
+
+sub generate_pageant_keys
+{
+	if (!test_connection())
+	{
+		$test_cmd = new Scaffolds::System("$plink -batch -l $user -pw $default_password $host echo test", { log => 0 });
+		if ($test_cmd->retcode || $test_cmd->out0 ne "test")
+		{
+			$password = read_password("Enter password for $user: ");
+			$test_cmd = new Scaffolds::System("$plink -batch -l $user -pw $password $host echo test", { log => 0 });
+			if ($test_cmd->retcode || $test_cmd->out0 ne "test")
+			{
+				die "Error: cannot authenticate.\n";
+			}
+		}
+		else
+		{
+			$password = $default_password;
+		}
+	}
+
+	# generate keys: write private key on server and send public key to client
+	my $pgen_cmd = new Scaffolds::System("$plink -batch -l $user -pw $password $host $linux_pgen", { log => 0 });
+	die "Error: failed to generate keys.\n" if $pgen_cmd->retcode;
+	
+	open KEY, ">$pageant_key_file";
+	print KEY $pgen_cmd->outText;
+	close KEY;
+	
+	print "key file created.\n";
+
+	run_pageant();
+
+	die "Something is wrong with pageant.\n" if ! test_connection();
+}
+
+sub run_pageant
+{
+	system("start $pageant $pageant_key_file");
+}
+
+sub exec_interactive
+{
+	# this will prompt user for password
+	my $rc;
+	system("$plink -nobatch -l $user $host $cmd");
+	$rc = $? == -1 ? -1 : ($? >> 8);
+	return $rc;
+}
+
+__END__
+
+=head1 NAME
+
+rvexec - Remotely execute command
+
+=head1 SYNOPSIS
+
+rvexec [options] [user@]host command
+
+=head1 OPTIONS
+
+=over 12
+
+=item B<--name NAME>
+
+=cut
+
+:end

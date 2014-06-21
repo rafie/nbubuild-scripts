@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+# use strict;
+use Getopt::Long;
+
+my $opt = GetOptions (
+	'help|?|h' => \$help,
+	'f|file=s' => \$cmd_file,
+	'n' => \$nop,
+	'd=s' => \%more_vars,
+	'print-vars' => \$print_vars,
+	'<>' => sub { push @args, shift; })
+	or die "failed\n";

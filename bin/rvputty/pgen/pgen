@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+use strict;
+use File::Temp qw(tempfile);
+
+my $user = $ENV{USER};
+my $home = $ENV{HOME};
+my $puttygen="/users/nbubuild/putty/x86/puttygen";
+
+my ($h_key, $key) = tempfile("keyXXXXX", DIR => "/tmp", UNLINK => 0);
+close $h_key;
+my ($h_keypub, $keypub) = tempfile("keyXXXXX", DIR => "/tmp", UNLINK => 0);
+close $h_keypub;
+
+system("$puttygen -q -C $user -t rsa -b 1024 -O private -o $key") and die "puttygen failed.\n";
+system("$puttygen -q $key -O public-openssh -o $keypub") and die "puttygen failed.\n";
+if (! -d "$home/.ssh")
+{
+	mkdir("$home/.ssh") or die "cannot mkdir $home/.ssh\n";
+}
+open KEYS, ">>$home/.ssh/authorized_keys";
+print KEYS readfile("$keypub");
+close KEYS;
+print readfile($key);
+unlink($key);
+unlink($keypub);
+exit(0);
+
+sub readfile
+{
+	my ($file) = @_;
+	open F, "<$file" or die $!;
+	my $s = do { local $/; <F> };
+	close F;
+	return $s;
+}
+

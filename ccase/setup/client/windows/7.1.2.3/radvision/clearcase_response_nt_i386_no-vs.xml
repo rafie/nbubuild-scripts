@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent-input rebootLater='true'>
+	<server>
+		<repository location='N:\Rational_new_app\Rational_7.1.2\7.1.2.3-RATL-RCC-WIN-FP03' />
+		<repository location='N:\Rational_new_app\Rational_7.1.2\ClearCase_7.1.2\disk1' />
+
+		<!-- repository location='N:\Rational_new_app\Rational_7.1.2\ClearCase_7.1.2.1FP01\7.1.2.1-RATL-RCC-WIN-FP01' /-->
+		<!-- repository location='N:\Rational_new_app\CCRC\CCRC_7.1.2\disk1' /-->
+		<!-- repository location='N:\Rational_new_app\CCRC\CCRC_7.1.2.1' /-->
+		<!-- repository location='N:\Rational_new_app\CCRC\CCRC_7.1.2.3\7.1.2.3-RATL-RCCRC-WIN-FP03' /-->
+
+		<!-- repository location='http://public.dhe.ibm.com/software/rationalsdp/team/v712/cc/nt_i386/updates/' /-->
+		<!-- repository location='http://public.dhe.ibm.com/software/rationalsdp/team/v712/cc/nt_i386/extensions/' /-->
+		<!-- repository location='http://public.dhe.ibm.com/software/rationalsdp/team/v712/ccrc/updates/' /-->
+		<!-- repository location='http://public.dhe.ibm.com/software/rationalsdp/team/v712/ccrc/extensions/' /-->
+	</server>
+
+	<preference name='PassportAdvantageIsEnabled' value='false' />
+	<preference name='com.ibm.cic.agent.ui.displayInternalVersion' value='false' />
+	<preference name='com.ibm.cic.common.core.preferences.connectTimeout' value='30' />
+	<preference name='com.ibm.cic.common.core.preferences.downloadAutoRetryCount' value='0' />
+	<preference name='com.ibm.cic.common.core.preferences.eclipseCache' value='C:\Program Files (x86)\IBM\IMShared' />
+	<preference name='com.ibm.cic.common.core.preferences.http.disablePreemptiveAuthentication' value='false' />
+	<preference name='com.ibm.cic.common.core.preferences.keepFetchedFiles' value='false' />
+	<preference name='com.ibm.cic.common.core.preferences.preserveDownloadedArtifacts' value='true' />
+	<preference name='com.ibm.cic.common.core.preferences.readTimeout' value='45' />
+	<preference name='com.ibm.cic.common.core.preferences.searchForUpdates' value='false' />
+	<preference name='com.ibm.cic.common.core.preferences.ssl.nonsecureMode' value='false' />
+	<preference name='http.ntlm.auth.enableIntegrated.win32' value='true' />
+	<preference name='http.ntlm.auth.kind' value='NTLM' />
+	<preference name='offering.service.repositories.areUsed' value='true' />
+
+	<profile id='IBM Rational SDLC' installLocation='C:\Program Files (x86)\IBM\RationalSDLC'>
+		<data key='cic.selector.arch' value='x86' />
+		<data key='cic.selector.nl' value='en' />
+		<data key='cic.selector.os' value='win32' />
+		<data key='cic.selector.ws' value='win32' />
+		<data key='eclipseLocation' value='C:\Program Files (x86)\IBM\RationalSDLC' />
+		<data key='user.ATRIA_HOST_IS_REMOTE,com.ibm.rational.clearcase.nt_i386' value='true' />
+		<data key='user.ATRIA_LOCAL_KEY,com.ibm.rational.clearcase.nt_i386' value='' />
+		<data key='user.CC_CCExplorerContextMenuCustomMenu,com.ibm.rational.clearcase.nt_i386' value='false' />
+		<data key='user.CC_CCExplorerContextMenuLocation,com.ibm.rational.clearcase.nt_i386' value='' />
+		<data key='user.CC_CCExplorerCreateShortcut,com.ibm.rational.clearcase.nt_i386' value='true' />
+		<data key='user.CC_CCExplorerToolShortcutsLocation,com.ibm.rational.clearcase.nt_i386' value='' />
+		<data key='user.CC_CCExplorerToolShortcutsUseShortcut,com.ibm.rational.clearcase.nt_i386' value='false' />
+		<data key='user.CC_DisableAccountConfiguration,com.ibm.rational.clearcase.nt_i386' value='false' />
+		<data key='user.CC_DynamicViewsDriveLetter,com.ibm.rational.clearcase.nt_i386' value='M' />
+		<data key='user.CC_EnableCCFS,com.ibm.rational.clearcase.nt_i386' value='0' />
+		<data key='user.CC_LICENSE_MANAGER,com.ibm.rational.clearcase.nt_i386' value='ATRIA' />
+		<data key='user.CC_MVFSCIFlag,com.ibm.rational.clearcase.nt_i386' value='3' />
+		<data key='user.CC_MVFSCaseInsensitivity,com.ibm.rational.clearcase.nt_i386' value='1' />
+		<data key='user.CC_MVFSCasePreserved,com.ibm.rational.clearcase.nt_i386' value='1' />
+		<data key='user.CC_MaxNumMnodesKeepOnCleartextFreeList,com.ibm.rational.clearcase.nt_i386' value='1800' />
+		<data key='user.CC_MaxNumMnodesKeepOnVOBFreeList,com.ibm.rational.clearcase.nt_i386' value='1800' />
+		<data key='user.CC_RegSMTPHostName,com.ibm.rational.clearcase.nt_i386' value='' />
+		<data key='user.CC_RemoteAdministrationAccess,com.ibm.rational.clearcase.nt_i386' value='1' />
+		<data key='user.CC_ScalingFactor,com.ibm.rational.clearcase.nt_i386' value='5' />
+		<data key='user.RCL_PortAtHost' value='27000@ss1' />
+		<data key='user.StopRunningProcesses' value='true' />
+		<data key='user.Team_Conv_InstallDirectory' value='C:/Program Files (x86)/IBM/RationalSDLC' />
+		<data key='user.VS2005DevEnvPath' value='C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\IDE\' />
+		<data key='user.VS2008DevEnvPath' value='C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\' />
+		<data key='user.VS2010DevEnvPath' value='C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\' />
+		<data key='user.import.profile' value='false' />
+
+		<data key='user.ATRIA_REMOTE_HOSTNAME,com.ibm.rational.clearcase.nt_i386' value='rvil-ccav' />
+		<data key='user.CC_AccountDomain,com.ibm.rational.clearcase.nt_i386' value='RADVISION' />
+		<data key='user.CC_AdminGroup,com.ibm.rational.clearcase.nt_i386' value='RADVISION\clearcase' />
+		<data key='user.CC_RegSvrHostName,com.ibm.rational.clearcase.nt_i386' value='rvil-ccrgy' />
+		<data key='user.CC_RegUNIXRegionName,com.ibm.rational.clearcase.nt_i386' value='radvision' />
+		<data key='user.CC_RegWinRegionName,com.ibm.rational.clearcase.nt_i386' value='radvision_nt' />
+		<data key='user.CC_ServerProcessPassword,com.ibm.rational.clearcase.nt_i386' value='QS9YLTP8toNXG9izCh1Q5g==' />
+		<data key='user.CC_ServerProcessUserID,com.ibm.rational.clearcase.nt_i386' value='clearcase_albd' />
+	</profile>
+
+	<install modify='false'>
+		<offering id='com.ibm.rational.clearcase.nt_i386' version='7.1.2003.0000-7-1-2-03-00-2011B-D110608' profile='IBM Rational SDLC' installFixes='none' 
+			features='
+				com.ibm.rational.clearcsae.checkOS.feature,
+				com.ibm.rational.clearcsae.checkv7.feature,
+				com.ibm.rational.clearcase.checkcq.shipping.server.feature,
+				com.ibm.rational.clearcase.check.processes.feature,
+				com.ibm.rational.clearcase.antivirus.feature,
+				com.ibm.rational.clearcase.lkad.removal.warning.feature,
+				com.ibm.rational.clearcase.top,
+				com.ibm.rational.clearcase.mvfs,
+				com.ibm.rational.clearcase.local.views.vobs,
+				com.ibm.rational.clearcase.multisite
+				'/>
+		<!-- offering id='com.ibm.rational.clearcase.rc' version='7.1.2003.0000-7-1-2-03-00-2011B-D110608' profile='IBM Rational SDLC' installFixes='none' 
+			features='
+				com.ibm.ccrc.core
+				'/-->
+	</install>
+
+	<!--
+	<install modify='false'>
+		<offering id='com.ibm.rational.clearcase.nt_i386' version='7.1.2001.0000-7-1-2-01-00-2010D-D101206' profile='IBM Rational SDLC' installFixes='none'
+			features='
+				com.ibm.rational.clearcsae.checkOS.feature,
+				com.ibm.rational.clearcsae.checkv7.feature,
+				com.ibm.rational.clearcase.checkcq.shipping.server.feature,
+				com.ibm.rational.clearcase.check.processes.feature,
+				com.ibm.rational.clearcase.antivirus.feature,
+				com.ibm.rational.clearcase.lkad.removal.warning.feature,
+				com.ibm.rational.clearcase.top,
+				com.ibm.rational.clearcase.mvfs,
+				com.ibm.rational.clearcase.local.views.vobs,
+				com.ibm.rational.clearcase.multisite
+				'/>
+		<offering id='com.ibm.rational.clearcase.rc' version='7.1.2001.0000-7-1-2-01-00-2010D-D101206' profile='IBM Rational SDLC' installFixes='none' 
+			features='
+				com.ibm.ccrc.core
+				'/>
+	</install>
+	-->
+</agent-input>

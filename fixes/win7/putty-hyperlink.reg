@@ -1,0 +1,8 @@
+REGEDIT4
+
+[HKEY_CLASSES_ROOT\telnet\shell\open\command]
+@="\"R:\\Mcu_Ngp\\Utilities\\Putty\\putty.exe\" %l"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_DISABLE_TELNET_PROTOCOL]
+"PresentationHost.exe"=dword:00000000
+"iexplore.exe"=dword:00000000

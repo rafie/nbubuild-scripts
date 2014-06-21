@@ -1,0 +1,19 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Control Panel\Desktop]
+"ScreenSaveActive"="0"
+"SCRNSAVE.EXE"="logon.scr"
+"ScreenSaverIsSecure"="0"
+"ScreenSaveTimeOut"="0"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU]
+"AUOptions"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"EnableLUA"=dword:00000000
+"legalnoticecaption"=""
+"legalnoticetext"=""
+"EnableLinkedConnections"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\enterceptAgent]
+"Start"=dword:00000004

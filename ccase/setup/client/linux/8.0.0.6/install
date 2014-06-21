@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $root = "/mnt/rvnbu/Build";
+my $imver = "1.6.2";
+my $ccver = "8.0.0.6";
+my $response_file = "$root/sys/scripts/ccase/setup/client/linux/$ccver/avaya/clearcase_response_linux_x86_8.0.xml";
+
+chdir("$root/pkg/dev/clearcase/installation-manager/linux/$imver");
+system("./installc --launcher.ini silent-install.ini -configuration \@user.home/.ibmim -acceptLicense") or die;
+chdir("/opt/IBM/InstallationManager/eclipse");
+system("./IBMIM --launcher.ini silent-install.ini -acceptLicense -ShowVerboseProgress -input $response_file") or die;

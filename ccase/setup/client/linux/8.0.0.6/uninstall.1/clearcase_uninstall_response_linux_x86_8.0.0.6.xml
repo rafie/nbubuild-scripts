@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  The complete list of documented Installation Manager commands can be found in
+    the installation manager infocenter.
+    http://publib.boulder.ibm.com/infocenter/install/v1r6/index.jsp
+-->
+
+<agent-input>
+    <!-- Uninstall Command
+    profile - the profile in which the product was installed
+    id - id of the offering to uninstall
+    features - The list of features to unistall
+    
+    In order to perform a complete uninstall the complete list of features currently installed on your system must be provided.
+    To determine the features installed on the system, execute the command below.
+    #grep -i feature /var/ibm/InstallationManager/installed.xml | grep clearcaseunix
+
+    The following is a complete list of all of IBM Rational ClearCase features for this platform:
+
+        com.ibm.rational.clearcaseunix.core                     - Core Function (Required)
+        com.ibm.rational.clearcase.ctexplorer                   - ClearTeam Explorer (Required)
+        com.ibm.rational.clearcase.cteupdatesite,               - ClearTeam Explorer Update Site
+        com.ibm.rational.cc.cadence.virtuoso.integration        - Cadence Virtuoso Integration
+        com.ibm.rational.clearcaseunix.CC_MIN_STD_X             - Minimal Developer Installation
+        com.ibm.rational.clearcaseunix.CC_FULL                  - Full Function Installation
+        com.ibm.rational.clearcaseunix.CC_ONLY_SERVER_X         - ClearCase Server-Only Installation
+        com.ibm.rational.clearcaseunix.CC_MFC                   - ClearCase z/OS extensions
+        com.ibm.rational.clearcaseunix.MS_FULL                  - MultiSite Full Function Installation
+        com.ibm.rational.clearcase.gm                           - ClearCase MultiSite Global Monitoring (requires MS_FULL)
+        com.ibm.rational.clearcaseunix.MS_ONLY_SHIPPING_SERVER  - MultiSite Shipping Server Only
+        com.ibm.rational.clearcaseunix.CQ_CC_int                - ClearQuest Integration with ClearCase
+        com.ibm.rational.clearcaseunix.CM_Server                - CCRC WAN Server
+    -->
+    <uninstall modify='false'>
+        <offering 
+            profile='IBM Rational SDLC' 
+            id='com.ibm.rational.clearcase.linux_x86'  
+            features='com.ibm.rational.team.check.v7.feature,
+            com.ibm.rational.is.supported.unix.cc.feature,
+            com.ibm.rational.check.link.feature,
+            com.ibm.rational.clearcase.was.removal.warning.feature,
+            com.ibm.rational.clearcaseunix.core,
+            com.ibm.rational.clearcase.ctexplorer,
+            com.ibm.rational.clearcase.cteupdatesite,
+            com.ibm.rational.cc.cadence.virtuoso.integration,
+            com.ibm.rational.clearcaseunix.CC_FULL,
+            com.ibm.rational.clearcaseunix.CC_MIN_STD_X,
+            com.ibm.rational.clearcaseunix.CC_ONLY_SERVER_X,
+            com.ibm.rational.clearcaseunix.CC_MFC,
+            com.ibm.rational.clearcaseunix.MS_FULL,
+            com.ibm.rational.clearcase.gm,
+            com.ibm.rational.clearcaseunix.MS_ONLY_SHIPPING_SERVER,
+            com.ibm.rational.clearcaseunix.CQ_CC_int,
+            com.ibm.rational.clearcaseunix.CM_Server'
+        />
+    </uninstall>
+</agent-input>

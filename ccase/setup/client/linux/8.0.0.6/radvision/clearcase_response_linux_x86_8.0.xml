@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<agent-input>
+	<server>
+		<repository location='/root/ClearCase/CC_8.0.0_Linux/disk1/diskTag.inf' />
+	</server>
+
+	<preference name='com.ibm.cic.common.core.preferences.eclipseCache' value='/opt/ibm/IMShared' />
+	<preference name='com.ibm.cic.common.core.preferences.preserveDownloadedArtifacts' value='true' />
+	<preference name='offering.service.repositories.areUsed' value='true' />
+
+	<profile id='IBM Rational SDLC' installLocation='/opt/ibm/RationalSDLC'>
+		<data key='cic.selector.nl' value='en' />    
+		<data key='eclipseLocation' value='/opt/ibm/RationalSDLC' />
+		<data key='user.ATRIA_HOST_IS_REMOTE,com.ibm.rational.clearcase.linux_x86' value='true' />
+		<data key='user.ATRIA_LOCAL_KEY,com.ibm.rational.clearcase.linux_x86' value=''/>
+		<data key='user.CC_CCRCServerTempDir,com.ibm.rational.clearcase.linux_x86' value='/var/tmp/ccrctemp' />
+		<data key='user.CC_GMHostname,com.ibm.rational.clearcase.linux_x86' value='itmmachine' />
+		<data key='user.CC_GMLocation,com.ibm.rational.clearcase.linux_x86' value='/opt/IBM/ITM' />
+		<data key='user.CC_GMPort,com.ibm.rational.clearcase.linux_x86' value='1918' />        
+		<data key='user.CC_LICENSE_MANAGER,com.ibm.rational.clearcase.linux_x86' value='ATRIA' />
+		<data key='user.CC_MVFSModuleKernelPath,com.ibm.rational.clearcase.linux_x86' value='/lib/modules/3.0.13-0.27-default/build'/>
+		<data key='user.CC_MVFSModuleRebuild,com.ibm.rational.clearcase.linux_x86' value='0' />
+		<data key='user.CC_RegSMTPHostName,com.ibm.rational.clearcase.linux_x86' value='mymailserver.mydomain.com' />
+		<data key='user.Ccrc_EnableWasSecurity' value='false'/>
+		<data key='user.Ccrc_ProfileChoice' value='new'/>
+		<data key='user.Ccrc_ServerChoice' value='WebSphere:cell=dfltCell,node=dfltNode,server=server1'/>
+		<data key='user.Ccrc_WasInstallLocation' value='/opt/IBM/WebSphere/AppServer'/>
+		<data key='user.Ccrc_WasProfileLocation' value='/opt/ibm/RationalSDLC/common/ccrcprofile'/>
+		<data key='user.Ccrc_WasProfileName' value='ccrcprofile'/>
+		<data key='user.Common_AdminDir' value='/var/adm/rational' />
+		<data key='user.Common_TempDir' value='/var/tmp' />
+		<data key='user.IHS_ConfFile' value='/opt/IBM/HTTPServer/conf/httpd.conf' />
+		<data key='user.IHS_Configuration' value='automatic' />
+		<data key='user.IHS_PluginPath' value='/opt/IBM/HTTPServer/Plugins/config/webserver1/plugin-cfg.xml' />
+		<data key='user.IHS_ServerRoot' value='/opt/IBM/HTTPServer' />
+		<data key='user.IHS_WebServId' value='webserver1' />
+		<data key='user.RCL_PortAtHost' value='27000@ss1' />
+
+		<data key='user.ATRIA_REMOTE_HOSTNAME,com.ibm.rational.clearcase.linux_x86' value='rvil-ccav' />
+		<data key='user.CC_RegSvrHostName,com.ibm.rational.clearcase.linux_x86' value='rvil-bronze' />
+		<data key='user.CC_RegUNIXRegionName,com.ibm.rational.clearcase.linux_x86' value='radvision' />
+	</profile>
+
+	<install>
+		<offering id='com.ibm.rational.clearcase.linux_x86' profile='IBM Rational SDLC' 
+			features='
+				com.ibm.rational.clearcaseunix.core,
+				com.ibm.rational.clearcase.ctexplorer,
+				com.ibm.rational.clearcaseunix.CC_MIN_STD_X
+			'/>
+	</install>
+</agent-input>

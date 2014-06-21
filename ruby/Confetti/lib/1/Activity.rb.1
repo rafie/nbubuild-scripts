@@ -1,0 +1,195 @@
+
+require 'nokogiri'
+require 'Bento'
+
+module Confetti
+
+#----------------------------------------------------------------------------------------------
+ 
+class Activities
+ 
+	# Ctor: takes in the path to the activity file
+	def initialize(activitiesMetadataFile)
+		@activitiesMetadataFile = activitiesMetadataFile		
+				
+		if !File::exists?(@activitiesMetadataFile)
+			# Create a new XML file for the activities
+			doc = Nokogiri::XML::Builder.new() do |xml| xml.activities end
+				
+			file = File::open(@activitiesMetadataFile,'w')
+			file.write(doc.to_xml)
+			file.close
+		end
+	end
+	
+	#------------------------------------------------------------------------------------------
+	
+	# Returns true if the activity with the given name exists in the metadata
+	def activityExists?(name)
+		# Read the contents of the activity file
+		f = File.open(@activitiesMetadataFile)		
+		doc = Nokogiri::XML(f)
+		f.close
+		 
+		# Parse the data		
+		doc.xpath('activities').children.each do |node|			
+			return true if node.attr('name') == name
+		end
+		return false
+	end	
+	
+	#------------------------------------------------------------------------------------------
+	
+	# Gets the current index of the activity with the given name
+	def getLabelIndex(name)
+		# Read the contents of the activity file
+		f = File.open(@activitiesMetadataFile)		
+		doc = Nokogiri::XML(f)
+		f.close		 		
+		 
+		 # Parse the data		 
+		 doc.xpath('activities // activity').each do |node|							 		
+			return node.attr('index') if node.attr('name') == name
+		 end		 		 		
+		 #@@ nothing is returned
+	end
+
+	#------------------------------------------------------------------------------------------
+	
+	# Raises by one - and returns - the next index of the activity with the given name
+	def raiseLabelIndex(name)
+		# Read the contents of the activity file
+		f = File.open(@activitiesMetadataFile)
+		doc = Nokogiri::XML(f)
+		f.close
+
+		nextIndex = -1
+		# Parse the data		
+		doc.xpath('activities // activity').each do |node|
+			if node.attr('name') == name
+				nextIndex = node.attr('index').to_i + 1
+				node['index'] = nextIndex.to_s
+			end
+		end
+
+		# Serialize the xml back
+		file = File::open(@activitiesMetadataFile, 'w')
+		file.write(doc.to_xml)
+		file.close
+
+		return nextIndex
+	end	
+	
+	#------------------------------------------------------------------------------------------
+		
+	# Starts a new activity in the meta data file
+	def startNewActivity(name)
+		return false if activityExists?(name)
+
+		f = File.open(@activitiesMetadataFile)		
+		doc = Nokogiri::XML(f)
+		f.close		 							
+		
+		activityNode = Nokogiri::XML::Node.new('activity',doc)
+		activityNode['name'] = name
+		activityNode['index'] = '1'
+		
+		# Parse the data		
+		doc.xpath('activities').first.add_child(activityNode)		
+		
+		# Serialize the xml back
+		file = File::open(@activitiesMetadataFile,'w')
+		file.write(doc.to_xml)
+		file.close
+		
+		return true
+	end
+	
+	#------------------------------------------------------------------------------------------
+	
+	def deleteActivity(name)
+		f = File.open(@activitiesMetadataFile)		
+		doc = Nokogiri::XML(f)
+		f.close
+
+		# Parse the data		
+		doc.xpath('activities // activity').each do |node|							 		
+			node.remove if node.attr('name') == name
+		end
+
+		# Serialize the xml back
+		file = File::open(@activitiesMetadataFile,'w')
+		file.write(doc.to_xml)
+		file.close
+	end
+	
+	#------------------------------------------------------------------------------------------
+	
+	# Deletes an acticity metadata file if it exists
+	def deleteMetadata(activitiesMetadataFile)
+		return false if !File::exists?( activitiesMetadataFile )
+
+		File.delete(activitiesMetadataFile)
+		return true
+	end
+
+
+end # Activities
+
+#----------------------------------------------------------------------------------------------
+
+class Activity
+	attr_reader :name
+	
+	def initialize(name)
+		@name = name
+		@user = User.new(ENV['username'])		
+		@activitiesManager = ActivitiesMetadata.new("R:/Build/dat/autogration/" + @user.name + ".xml")
+	end
+
+	def materializeActivity()
+		@activitiesManager.startNewActivity(@name)
+				
+		myBranch = ClearCASE::Branch.new(branchName())
+		myBranch.materializeBranch()
+				
+		myView = ClearCASE::View.new(viewName())
+		myView.materializeView()
+		
+		puts "Created activity #{@name}" unless !$verbose
+	end
+		
+	def exists?
+		exists = @activitiesManager.activityExists?(@name)
+		puts "activity #{@name} exists = #{exists}" unless !$verbose
+		return exists
+	end
+	
+	def branchName
+		# return @user.name + "_" + @name + "_br"
+		"#{@user.name}_#{@name}_br"
+	end 
+	
+	def viewName
+		# return @user.name + "_" + @name
+		"#{@user.name}_#{@name}"
+	end	
+
+	# Returns the next label name for this activity.		
+	def nextLabelName
+		@nextIndex = @activitiesManager.raiseLabelIndex(@name)
+		"#{@user.name}_#{@name}_#{@nextIndex.to_s}"
+	end
+
+	# Get (just) the activity name from the view
+	def Activity.extractActivityNameFromViewName(view_name)		
+		view_name =~ /([^_]+)_(.+)_(.+)/
+		#puts "#{$1} #{$2} #{$3}"
+		return $2
+	end
+
+end # Activity
+
+#----------------------------------------------------------------------------------------------
+
+end # module Confetti

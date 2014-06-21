@@ -1,0 +1,35 @@
+cleartool mktrtype -element -all -eltype changelog -postop checkout -nc -execunix /mnt/rvnbu/NBU/Build/sys/scripts/ccase/triggers/new-changelog -execwin \\storage\NBU\\Build\sys\scripts\ccase\triggers\new-changelog.bat new_changelog
+
+VOBs:
+nbu.prod.mcu
+mcu
+web
+nbu.media
+nbu.infra
+
+The element type ('changelog') is defined as follows:
+cleartool mkeltype -supertype text_file -manager changelog_delta -ptime -mergetype auto -nc changelog
+
+The type manager is 'changelog_delta'. It’s defined by the following lines in ClearCase\lib\mgrs\map:
+changelog_delta      construct_version          ..\..\bin\tfdmgr.exe
+changelog_delta      create_branch              ..\..\bin\tfdmgr.exe
+changelog_delta      create_element             ..\..\bin\tfdmgr.exe
+changelog_delta      create_version             ..\..\bin\tfdmgr.exe
+changelog_delta      delete_branches_versions   ..\..\bin\tfdmgr.exe
+changelog_delta      compare                    ..\..\bin\cleardiff.exe
+changelog_delta      xcompare                   R:\Mcu_Ngp\Utilities\BeyondCompare\3.0\BCompare.exe
+changelog_delta      merge                      ..\..\bin\cleardiff.exe
+changelog_delta      xmerge                     R:\Build\sys\scripts\ccase\quickmerge.exe
+changelog_delta      annotate                   ..\..\bin\tfdmgr.exe
+changelog_delta      get_cont_info              ..\..\bin\tfdmgr.exe
+
+In the Linux host I used for testing (rvil-nbu-build-dsp), the type manager is defined at /opt/rational/clearcase/lib/mgrs/changelog_delta,
+and it’s basically identical to text_file_delta.
+
+The trigger scripts are at:
+For Windows:    \\storage\NBU\\Build\sys\scripts\ccase\triggers\new-changelog.bat
+For Linux:            /users/rafie/ccase/triggers/new-changelog
+(They’re practically the same Perl script, just a different envelop).
+
+The trigger type (‘new_changelog’) is defined as follows:
+cleartool mktrtype -replace -element -all -eltype changelog -postop checkout -nc -execunix /users/rafie/ccase/triggers/new-changelog -execwin \\storage\NBU\\Build\sys\scripts\ccase\triggers\new-changelog.bat new_changelog

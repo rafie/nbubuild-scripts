@@ -1,0 +1,7 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\Software\Microsoft\Communicator]
+"AlwaysOnTop"=hex:00,00,00,00
+"AutoRunWhenLogonToWindows"=dword:00000001
+"AutoOpenMainWindowWhenStartup"=dword:00000000
+"MinimizeWindowToNotificationArea"=dword:00000001

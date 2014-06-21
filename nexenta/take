@@ -1,0 +1,20 @@
+#!/bin/csh -f
+
+set take=`date +%Y%m%d-%H%M%S`
+set d=/tmp/take/$take
+mkdir -p $d
+zpool status > $d/zpool_status
+zfs list > $d/zfs_list
+zpool list > $d/zpool_list
+fmdump > $d/fmdump
+fmdump -eV > $d/fmdump_ev
+iostat -En > $d/iostat_en
+zpool iostat -v -Td > $d/zpool_iostat
+zpool iostat -v -Td 60 2 > $d/zpool_iostat_60_2
+zfs get all > $d/zfs_get_all
+cd $d/..
+tar czf $take.tgz $take/*
+cp $take.tgz /volumes/vol1/main/tmp/take
+# echo $d
+
+

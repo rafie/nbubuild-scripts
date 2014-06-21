@@ -1,0 +1,92 @@
+
+require 'nokogiri'
+require 'Bento'
+
+module Confetti
+
+LOT_XML_VIEWPATH = "/nbu.meta/confetti/lots.xml";
+
+#----------------------------------------------------------------------------------------------
+
+class LotsDB
+
+	def Lots.exist?(name)
+		DB.global.get_first_value("select count(*) from lots where name='#{name}'") == 1
+	end
+
+	def initialize()
+		view = ClearCASE::CurrentView.new
+		@xml = Nokogiri::XML(File.open(view.fullPath + LOT_XML_VIEWPATH))
+	end
+
+	#------------------------------------------------------------------------------------------
+
+	def lotVobNames(name)
+		@xml.xpath("//lots/lot[@name='#{name}']/vob/@name").map { |x| x.to_s }
+	end
+
+	#------------------------------------------------------------------------------------------
+	
+	def lotLotNames(name)
+		@xml.xpath("//lots/lot[@name='#{name}']/lot/@name").map { |x| x.to_s }
+	end
+
+end # Lots
+
+#----------------------------------------------------------------------------------------------
+
+class Lot
+	attr_reader :name
+
+	# Inits the Lot object. Throws :nosuchlot if the given lot name is not found in the metadata
+
+	def initialize(name)
+		# raise "Lot #{name} does not exist" unless Lots.exists?(name)
+		@name = name
+		@lots = nil
+	end
+
+	# Returns an array of VOB names in this lot
+
+	def VOBs()
+		names = lots.lotVobNames(@name)
+		return ClearCASE::VOBs.new(names)
+	end
+	
+	# Filters the given Elements instance: Returns another instance of Elements
+	# that contains only those elements that are part of the Lot
+
+	def filterElements(elements)
+		files = {}
+		VOBs.each do |vob|
+			files.merge!(elements.filterByVOB(vob))
+		end
+		return ClearCASE::Elements.new(files.keys())
+	end
+	
+	private
+
+	def lots
+		@lots = Lots.new if ! @lots
+		return @lots
+	end
+
+end # Lot
+
+#----------------------------------------------------------------------------------------------
+
+class Lots
+
+	def initialize(names)
+		@names = names
+	end
+
+	def each
+		@names.each { |vname| yield Lot.new(vname) }
+	end
+
+end # Lots
+
+#----------------------------------------------------------------------------------------------
+
+end # module Confetti

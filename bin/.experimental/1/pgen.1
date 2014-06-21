@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+
+my $user = $ENV{USER};
+my $home = $ENV{HOME};
+my $puttygen="/users/nbubuild/putty/x86/puttygen";
+my $key = "/tmp/$user-k1";
+my $pub = $key . "_pub";
+system("$puttygen -q -C $user -t rsa -b 1024 -O private -o $key") and die "puttygen failed.\n";
+system("$puttygen -q $key -O public-openssh -o $pub") and die "puttygen failed.\n";;
+if (! -d "$home/.ssh")
+{
+	mkdir("$home/.ssh") or die "cannot mkdir $home/.ssh\n";
+}
+open KEYS, ">>$home/.ssh/authorized_keys";
+print KEYS readfile("$pub");
+close KEYS;
+print readfile($key);
+unlink($key);
+unlink($pub);
+exit(0);
+
+sub readfile
+{
+	my ($file) = @_;
+	open F, "<$file" or die $!;
+	my $s = do { local $/; <F> };
+	close F;
+	return $s;
+}
+

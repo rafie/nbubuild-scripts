@@ -1,0 +1,75 @@
+REGEDIT4
+
+[HKEY_CLASSES_ROOT\.bat]
+@="batfile"
+
+[HKEY_CLASSES_ROOT\.bat\PersistentHandler]
+@="{5e941d80-bf96-11cd-b579-08002b30bfeb}"
+
+[HKEY_CLASSES_ROOT\batfile]
+@="Windows Batch File"
+"EditFlags"=hex:30,04,00,00
+"FriendlyTypeName"=hex(2):40,25,53,79,73,74,65,6d,52,6f,6f,74,25,5c,53,79,73,\
+  74,65,6d,33,32,5c,61,63,70,70,61,67,65,2e,64,6c,6c,2c,2d,36,30,30,32,00
+
+[HKEY_CLASSES_ROOT\batfile\DefaultIcon]
+@=hex(2):25,53,79,73,74,65,6d,52,6f,6f,74,25,5c,53,79,73,74,65,6d,33,32,5c,69,\
+  6d,61,67,65,72,65,73,2e,64,6c,6c,2c,2d,36,38,00
+
+[HKEY_CLASSES_ROOT\batfile\shell]
+
+[HKEY_CLASSES_ROOT\batfile\shell\edit]
+
+[HKEY_CLASSES_ROOT\batfile\shell\edit\command]
+@=hex(2):25,53,79,73,74,65,6d,52,6f,6f,74,25,5c,53,79,73,74,65,6d,33,32,5c,4e,\
+  4f,54,45,50,41,44,2e,45,58,45,20,25,31,00
+
+[HKEY_CLASSES_ROOT\batfile\shell\open]
+"EditFlags"=hex:00,00,00,00
+
+[HKEY_CLASSES_ROOT\batfile\shell\open\command]
+@="\"%1\" %*"
+
+[HKEY_CLASSES_ROOT\batfile\shell\print]
+
+[HKEY_CLASSES_ROOT\batfile\shell\print\command]
+@=hex(2):25,53,79,73,74,65,6d,52,6f,6f,74,25,5c,53,79,73,74,65,6d,33,32,5c,4e,\
+  4f,54,45,50,41,44,2e,45,58,45,20,2f,70,20,25,31,00
+
+[HKEY_CLASSES_ROOT\batfile\shell\runas]
+"HasLUAShield"=""
+
+[HKEY_CLASSES_ROOT\batfile\shell\runas\command]
+@=hex(2):25,53,79,73,74,65,6d,52,6f,6f,74,25,5c,53,79,73,74,65,6d,33,32,5c,63,\
+  6d,64,2e,65,78,65,20,2f,43,20,22,25,31,22,20,25,2a,00
+
+[HKEY_CLASSES_ROOT\batfile\shell\runasuser]
+@="@shell32.dll,-50944"
+"Extended"=""
+"SuppressionPolicyEx"="{F211AA05-D4DF-4370-A2A0-9F19C09756A7}"
+
+[HKEY_CLASSES_ROOT\batfile\shell\runasuser\command]
+"DelegateExecute"="{ea72d00e-4960-42fa-ba92-7792a7944c1d}"
+
+[HKEY_CLASSES_ROOT\batfile\ShellEx]
+
+[HKEY_CLASSES_ROOT\batfile\ShellEx\ContextMenuHandlers]
+@="Compatibility"
+
+[HKEY_CLASSES_ROOT\batfile\ShellEx\ContextMenuHandlers\Compatibility]
+@="{1d27f844-3a1f-4410-85ac-14651078412d}"
+
+[HKEY_CLASSES_ROOT\batfile\ShellEx\DropHandler]
+@="{86C86720-42A0-1069-A2E8-08002B30309D}"
+
+[HKEY_CLASSES_ROOT\batfile\ShellEx\PropertySheetHandlers]
+
+[HKEY_CLASSES_ROOT\batfile\ShellEx\PropertySheetHandlers\PifProps]
+@="{86F19A00-42A0-1069-A2E9-08002B30309D}"
+
+;[HKEY_CLASSES_ROOT\batfile\ShellEx\PropertySheetHandlers\ShimLayer Property Page]
+;@="{513D916F-2A8E-4F51-AEAB-0CBC76FB1AF8}"
+
+[HKEY_CLASSES_ROOT\batfile\ShellEx\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{1531d583-8375-4d3f-b5fb-d23bbd169f22}"
+

@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $name = shift;
+my $user = $ENV{USER};
+my $group = "rvil_ccusers"; # 1140
+
+my $host = "rvil-ccview";
+my $win_region = "radvision_nt";
+my $unix_region = "radvision";
+my $views_dir = "/cm/views/NBU";
+my $views_windir = "//rvil-ccview/cm/views/NBU";
+
+my $ccdir = "/opt/ibm/RationalSDLC/clearcase/linux_x86";
+my $ct = "$ccdir/bin/cleartool";
+
+my $tag = "${user}_$name";
+my $view_dir = "$views_dir/$tag.vws";
+my $view_windir = "$views_windir/$tag.vws";
+$view_windir =~ s/\//\\\\/g;
+
+die "Cannot create view as root. Aborting.\n" if $user eq "root";
+die "Cannot find view storage directory. Aborting.\n" if ! -d $views_dir;
+
+system("$ct mkview -tag $tag -tmode transparent -region $unix_region -host $host -hpath $view_dir -gpath $view_dir $view_dir");
+system("$ct mktag -view -tag $tag -reg $win_region -host $host -gpath $view_windir $view_dir");
+system("$ct endview -server $tag");
+
+system("$ccdir/etc/utils/fix_prot -force -r -chown $user -chgrp $group -chmod 775 $view_dir");
+system("$ccdir/etc/utils/fix_prot -force -root -chown $user -chgrp $group $view_dir");
+
+exit(0);

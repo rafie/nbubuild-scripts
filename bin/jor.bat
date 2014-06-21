@@ -1,0 +1,183 @@
+@rem ='
+@echo off
+setlocal
+call set-nbu-build-env.bat
+%NBU_BUILD_PERL%\bin\perl.exe -S %0 %*
+exit /b %errorlevel%
+@rem ';
+#line 9
+#!/bin/perl
+
+use strict;
+use Getopt::Long;
+use Pod::Usage;
+use Scaffolds::System;
+
+my $help = 0;
+my $script;
+my $nop = 0;
+my $print_vars;
+my $cmd_file = "";
+my @args;
+my %more_vars;
+
+my $opt = GetOptions (
+	'help|?|h' => \$help,
+	'f|file=s' => \$cmd_file,
+	'n' => \$nop,
+	'd=s' => \%more_vars,
+	'print-vars' => \$print_vars,
+	'<>' => sub { push @args, shift; })
+	or pod2usage(-exitstatus => 1, -verbose => 99, -sections => "SYNOPSIS|OPTIONS");
+pod2usage(-exitstatus => 0, -verbose => 2) if $help;
+
+my @more_args = @ARGV;
+
+our %vars = define_vars();
+foreach my $k (keys %more_vars)
+{
+	$vars{lc($k)} = $more_vars{$k};
+}
+# @vars{lc keys %more_vars} = values %more_vars;
+
+if ($print_vars)
+{
+	foreach my $k (keys %vars)
+	{
+		print "$k\t$vars{$k}\n";
+	}
+	exit(0);
+}
+
+$script = shift(@args);
+die "No script specified. Aborting.\n" if ! $script;
+die "Script $script not found.\n" if ! -f $script;
+
+my $c;
+
+open SCRIPT, "<$script" or die "Cannot open script $script\n";
+while (<SCRIPT>)
+{
+	wchomp();
+	next if $_ =~ "#.*";
+	$c .= expand_vars("$_ ");
+}
+close SCRIPT;
+
+foreach (@more_args)
+{
+	$c .= expand_vars("$_ ");
+}
+
+if ($nop)
+{
+	if ($cmd_file)
+	{
+		open CMD, ">$cmd_file" or die "Cannot create file $cmd_file\n";
+		print CMD "$c\n";
+		close CMD;
+	}
+	else
+	{
+		print "$c\n";
+	}
+}
+else
+{
+	system $c;
+}
+
+sub define_vars
+{
+	my $view;
+	my $vroot;
+
+	my $pwv = new Scaffolds::System("cleartool pwv -root -sh", { log => 0 });
+	if (! $pwv->retcode)
+	{
+		$vroot = $pwv->out(0);
+		$vroot =~ /.:\\(.*)/;
+		$view = $1;
+		$vroot =~ s/\\/\//g;
+	}
+	
+	return ( view => $view, vroot => $vroot );
+}
+
+sub expand_vars
+{
+	my ($x) = @_;
+	while ($x =~ /(.*?[^\\]|^|.*?\\\\)\${(.*?)}(.*)/i)
+	{
+		my $var = lc($2);
+		my $y = $vars{$var};
+		$y = $ENV{$var} if $y eq "";
+		$x = "$1$y$3";
+	}
+	return $x;
+}
+
+sub wchomp
+{
+	chomp;
+	chop if (substr($_, -1, 1) eq "\r");
+	return $_;
+}
+
+__END__
+
+=head1 NAME
+
+jor - Run job from multi-line argument file
+
+=head1 SYNOPSIS
+
+jor [options] script.jor -- [extra arguments]
+
+=head1 OPTIONS
+
+=over 12
+
+=item B<-n>
+
+Print command and exit.
+
+=item B<-f <file>>, B<--file <file>>
+
+Write command line into <file>.
+
+=item B<-d VAR=VALUE>
+
+Define variable VAR to VALUE.
+
+=item B<--print-vars>
+
+Print internaly defined variables and exit.
+
+=item B<-h>, B<--help>
+
+Print a brief help message and exits.
+
+=back
+
+=head1 DESCRIPTION
+
+B<This program> will join the lines in a multi-line .jor script and execute the resulting command.
+Lines starting with # are excluded.
+Variables can be specified using the ${var} syntax.
+
+=head2 Predefined variables include:
+
+=over 12
+
+=item B<VIEW>
+
+view name
+
+=item B<VROOT>
+
+view root directory (e.g., M:/view)
+
+
+=cut
+

@@ -1,0 +1,8 @@
+events/logoff/01-policy-fix.bat
+events/logon/01-policy-fix.bat
+events/shutdown/01-policy-fix.bat
+events/startup/01-policy-fix.bat
+
+policy/policy-mod.bat
+policy/policy-mod.reg
+policy/policy-mod-task.xml
