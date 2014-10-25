@@ -2,6 +2,8 @@
 
 setlocal
 
+if not exist r:\ net use r: \\storage\NBU
+
 set NBU_BUILD_ROOT=r:\build
 set NBU_BUILD_PERL=%NBU_BUILD_ROOT%\dev\lang\active-perl\5.8.8
 

@@ -27,7 +27,7 @@ Text:
 
   coin                    Create file set from a template
   e                       Default editor (usually UltraEdit)
-  gdiff                   BeyondCompare
+  vdiff                   BeyondCompare
 
 File Transfer:
 
@@ -48,9 +48,11 @@ ClearCASE-related:
   tt                      Confetti commands
 
 Development:
+
   #dev                    Invoke #develop IDE (.NET)
   bart                    Run BART test
   cs                      Run a C# file (yes! no compiler!)
+  pside                   PowerGUI IDE for PowerShell
 
 License manager:
 
@@ -62,7 +64,7 @@ Others:
   curl                    Invoke curl (http client)
   dotty                   Draw a .dot graph
   dot-jpg                 Draw a .dot graph into .jpg file
-  dumpreg.pl              Registry dump
+  dumpreg                 Registry dump
   mgrep                   Multi-line grep
   xpath                   XPath (XML) query
   xmllink                 Checks XML file for correctness

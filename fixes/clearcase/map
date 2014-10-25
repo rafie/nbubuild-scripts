@@ -4,9 +4,9 @@ text_file_delta		create_element			..\..\bin\tfdmgr.exe
 text_file_delta		create_version			..\..\bin\tfdmgr.exe
 text_file_delta		delete_branches_versions	..\..\bin\tfdmgr.exe
 text_file_delta		compare				..\..\bin\cleardiff.exe
-text_file_delta		xcompare			R:\Mcu_Ngp\Utilities\BeyondCompare\3.0\BCompare.exe
+text_file_delta		xcompare			R:\Mcu_Ngp\Utilities\BeyondCompare\head\BCompare.exe
 text_file_delta		merge				..\..\bin\cleardiff.exe
-text_file_delta		xmerge				R:\Mcu_Ngp\Utilities\BeyondCompare\3.0\BCompare.exe
+text_file_delta		xmerge				R:\Mcu_Ngp\Utilities\BeyondCompare\head\BCompare.exe
 text_file_delta		annotate			..\..\bin\tfdmgr.exe
 text_file_delta		get_cont_info			..\..\bin\tfdmgr.exe
 utf8_file_delta		construct_version		..\..\bin\utf8deltamgr.exe
@@ -121,9 +121,9 @@ _ms_word		create_element			..\..\bin\zmgr.exe
 _ms_word		create_version			..\..\bin\zmgr.exe
 _ms_word		delete_branches_versions	..\..\bin\zmgr.exe
 _ms_word		compare				..\..\bin\cleardiff.exe
-_ms_word		xcompare			R:\Mcu_Ngp\Utilities\BeyondCompare\3.0\BCompare.exe
+_ms_word		xcompare			R:\Mcu_Ngp\Utilities\BeyondCompare\head\BCompare.exe
 _ms_word		merge				..\..\bin\cleardiff.exe
-_ms_word		xmerge				R:\Mcu_Ngp\Utilities\BeyondCompare\3.0\BCompare.exe
+_ms_word		xmerge				R:\Mcu_Ngp\Utilities\BeyondCompare\head\BCompare.exe
 _ms_word		get_cont_info			..\..\bin\zmgr.exe
 _html			construct_version		..\..\bin\tfdmgr.exe
 _html			create_branch			..\..\bin\tfdmgr.exe
@@ -142,9 +142,9 @@ _xml			create_element			..\..\bin\tfdmgr.exe
 _xml			create_version			..\..\bin\tfdmgr.exe
 _xml			delete_branches_versions	..\..\bin\tfdmgr.exe
 _xml			compare				..\..\bin\cleardiff.exe
-_xml			xcompare			R:\Mcu_Ngp\Utilities\BeyondCompare\3.0\BCompare.exe
+_xml			xcompare			R:\Mcu_Ngp\Utilities\BeyondCompare\head\BCompare.exe
 _xml			merge				..\..\bin\cleardiff.exe
-_xml			xmerge				R:\Mcu_Ngp\Utilities\BeyondCompare\3.0\BCompare.exe
+_xml			xmerge				R:\Mcu_Ngp\Utilities\BeyondCompare\head\BCompare.exe
 _xml			annotate			..\..\bin\tfdmgr.exe
 _xml			get_cont_info			..\..\bin\tfdmgr.exe
 _rose			construct_version		..\..\bin\tfdmgr.exe
@@ -175,9 +175,9 @@ _xml2			create_element			..\..\bin\bdtm.exe
 _xml2			create_version			..\..\bin\bdtm.exe
 _xml2			delete_branches_versions	..\..\bin\bdtm.exe
 _xml2			compare				..\..\bin\cleardiff.exe
-_xml2			xcompare			R:\Mcu_Ngp\Utilities\BeyondCompare\3.0\BCompare.exe
+_xml2			xcompare			R:\Mcu_Ngp\Utilities\BeyondCompare\head\BCompare.exe
 _xml2			merge				..\..\bin\cleardiff.exe
-_xml2			xmerge				R:\Mcu_Ngp\Utilities\BeyondCompare\3.0\BCompare.exe
+_xml2			xmerge				R:\Mcu_Ngp\Utilities\BeyondCompare\head\BCompare.exe
 _xml2			annotate			..\..\bin\bdtm.exe
 _xml2			get_cont_info			..\..\bin\bdtm.exe
 _rose2			construct_version		..\..\bin\bdtm.exe
@@ -280,7 +280,7 @@ changelog_delta		create_element			..\..\bin\tfdmgr.exe
 changelog_delta		create_version			..\..\bin\tfdmgr.exe
 changelog_delta		delete_branches_versions	..\..\bin\tfdmgr.exe
 changelog_delta		compare				..\..\bin\cleardiff.exe
-changelog_delta		xcompare			R:\Mcu_Ngp\Utilities\BeyondCompare\3.0\BCompare.exe
+changelog_delta		xcompare			R:\Mcu_Ngp\Utilities\BeyondCompare\head\BCompare.exe
 changelog_delta		merge				..\..\bin\cleardiff.exe
 changelog_delta		xmerge				R:\Build\sys\scripts\ccase\quickmerge.exe
 changelog_delta		annotate			..\..\bin\tfdmgr.exe

@@ -20,14 +20,15 @@ print "\nSetting up Avaya Windows 7 workstation...\n";
 my $home = realpath($FindBin::Bin . "/..");
 chdir($home);
 
-# systemxi("avaya-global-policy\\fix.bat");
+systemxi("devito\\fix.bat");
 
 systemi("avaya-global-policy\\fix.bat") if ! $ENV{DEVITO_SYSEVENTS};
 
 systemxi("win7\\fix.bat");
 systemxi("ipv6\\fix.bat");
 systemxi("network\\fix.bat");
+systemxi("powershell\\fix.bat");
 
-# systemxi("clearcase\\fix.bat");
+systemxi("clearcase\\fix.bat");
 
 exit(0);

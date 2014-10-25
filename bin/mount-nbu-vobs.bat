@@ -38,7 +38,7 @@ cleartool mount -persistent \nbu.dsp
 cleartool mount -persistent \nbu.infra
 cleartool mount -persistent \nbu.media
 cleartool mount -persistent \nbu.meta
-cleartool mount -persistent \nbu.prod.mcu
+cleartool mount -persistent \nbu.products
 cleartool mount -persistent \nbu.proto.jingle-stack
 cleartool mount -persistent \nbu.tests
 cleartool mount -persistent \nbu.tools

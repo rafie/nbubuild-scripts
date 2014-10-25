@@ -1,6 +1,6 @@
 @echo off
 
-set INTEL_IPP_DIR=d:\dev\libs\intel-ipp\7.0.1-127
-set INTEL_IPP_PATH=%INTEL_IPP_DIR%\ComposerXE-2011\redist\ia32\ipp
+set INTEL_IPP_PATH=%NBU_BUILD_ROOT%\dev\libs\intel-ipp\7.0.1.127\bin\windows-x86
+set INTEL_ICC_PATH=%NBU_BUILD_ROOT%\dev\libs\intel-icc-redist\12.0.127\bin\windows-x86
 
-set path=%INTEL_IPP_PATH%;%path%
+set path=%INTEL_IPP_PATH%;%INTEL_ICC_PATH%;%path%

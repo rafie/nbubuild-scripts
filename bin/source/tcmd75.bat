@@ -16,7 +16,7 @@ set UltraEdit_cfg_path=%UltraEdit_cfg_base%\%UltraEdit_ver%
 set UltraEdit_default_cfg_path=%UserConfigRoot_path%\ultra-edit\%UltraEdit_ver%\config
 set UltraEdit_command=%UltraEdit_path%\uedit32.exe /i=%UltraEdit_cfg_path%\uedit32.ini
 
-set BeyondCompare_path=R:\Mcu_Ngp\Utilities\BeyondCompare\latest
+set BeyondCompare_path=R:\Mcu_Ngp\Utilities\BeyondCompare\head
 set BeyondCompare_command=%BeyondCompare_path%\BCompare.exe
 
 set PowerGREP_path=R:\Mcu_Ngp\Utilities\PowerGREP\latest

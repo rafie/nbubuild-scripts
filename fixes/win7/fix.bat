@@ -32,6 +32,7 @@ systemx("reg import lync2010.reg");
 systemx("reg import sounds.reg");
 systemx("reg import folders.reg");
 systemx("reg import screen-saver.reg");
+systemx("reg import winkeys.reg");
 systemx("cifs-shares.bat");
 systemx("symbolic-links.bat");
 

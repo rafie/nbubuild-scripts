@@ -18,6 +18,7 @@ my $opt = GetOptions (
 	) or pod2usage(-exitstatus => 1, -verbose => 99, -sections => "SYNOPSIS|OPTIONS");
 pod2usage(-exitstatus => 0, -verbose => 2) if $help;
 
+$user = shift if ! $user;
 $user = $ENV{USERNAME} if ! $user;
 
 my $ccase = $Registry->{q"HKEY_LOCAL_MACHINE\SOFTWARE\Atria\ClearCase\CurrentVersion"} or die "Cannot find ClearCase key in registry\n";

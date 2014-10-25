@@ -25,6 +25,7 @@ systemx("reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersi
 systemx("reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap\\Domains\\emea.avaya.com\\storage\" /f /v file /t REG_DWORD /d 2");
 systemx("reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap\\Domains\\global.avaya.com\\storage\" /f /v file /t REG_DWORD /d 2");
 # @@ add nx1 here
+systemx("regedit /s trusted-sites.reg");
 
 # add users to local administrators group
 add_local_admins();

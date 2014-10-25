@@ -87,6 +87,12 @@ while (@ARGV)
 	}
 }
 
+for (@ARGV)
+{
+	next if /^-/;
+	$brnames{$_} = 1;
+}
+
 mount_admin_vob();
 
 $vobs{$admin_vob} = 1 if !$local_flag && ! keys(%vobs);

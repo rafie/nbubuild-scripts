@@ -12,6 +12,7 @@ use strict;
 use Cwd;
 use Win32::Process;
 use Getopt::Long;
+use Pod::Usage;
 use English;
 
 use Scaffolds;
@@ -64,9 +65,9 @@ if ($run_service)
 
 if ($stop_service)
 {
-	my $kill = systema("$pskill -t stop-auto-updates-d");
-	print $kill->ok ? "Stopped.\n" : "Not running.\n";
-	exit($kill->ok ? 0 : 1);
+	my $killed = kill_proc("stop-auto-updates-d");
+	print $killed ? "Stopped.\n" : "Not running.\n";
+	exit($killed ? 0 : 1);
 }
 
 exit(0);
@@ -79,9 +80,9 @@ sub stop_system_agents
 	my $service = $winxp ? "Automatic Updates" : "Windows Update";
 	my $stop = new Scaffolds::System("net stop \"$service\"");
 	print "$service: " . (! $stop->retcode ? "stopped.\n" : "not running.\n");
-	
-	my $kill = systema("$pskill -t SMSCliUI.exe");
-	print "SMSCliUI: " . ($kill->ok ? "stopped.\n" : "not running.\n");
+
+	my $killed = kill_proc("SMSCliUI");
+	print "SMSCliUI: " . ($killed ? "stopped.\n" : "not running.\n");
 }
 
 sub detach
@@ -99,3 +100,47 @@ sub detach
 
     Win32::Process::Create(@proc_params) or die Win32::FormatMessage(Win32::GetLastError());
 }
+
+sub kill_proc
+{
+	my ($pname) = @_;
+
+	my $ps = systema("$pslist $pname", {log=>0});
+	return if $ps->failed;
+	my $line = $ps->out(3);
+	$line =~ /^([^\s]+)\s*(\d+)/;
+	my $pid = $2;
+	return if ! $pid;
+	my $kill = systema("$pskill $pid");
+	return $kill->ok;
+}
+
+__END__
+
+=head1 NAME
+
+stop-auto-updates : suspend Windows automatic updates facilities
+
+=head1 SYNOPSIS
+
+stop-auto-updates [options]
+
+=head1 OPTIONS
+
+=over 12
+
+=item B<--start>
+
+Starts a daemon that periodically suspends updates.
+
+=item B<--stop>
+
+Stops the daemon that periodically suspends updates.
+
+=item B<--now>
+
+Stop automatic updates services and exit (do not start daemon).
+
+=cut
+
+:end

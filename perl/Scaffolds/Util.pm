@@ -8,7 +8,7 @@ require Exporter;
 use vars qw(@ISA @EXPORT);
 
 @ISA = qw(Exporter);
-@EXPORT = qw(wchomp argshash read_list oneliner read_file write_to_file append_to_file append_file_to_file is_dir_empty w2u u2w is_xp is_x64);
+@EXPORT = qw(wchomp argshash read_list oneliner read_file write_to_file append_to_file append_file_to_file is_dir_empty is_link w2u u2w is_xp is_x64);
 
 #----------------------------------------------------------------------------------------------
 
@@ -119,6 +119,15 @@ sub is_dir_empty
     my ($dir) = @_;
     opendir(my $dh, $dir) or return 0;
     return scalar(grep { $_ ne "." && $_ ne ".." } readdir($dh)) == 0;
+}
+
+#----------------------------------------------------------------------------------------------
+
+sub is_link
+{
+	my ($file) = @_;
+	my $x = `fsutil reparsepoint query "$file"`;
+	return !!($x =~ /Symbolic Link/);
 }
 
 #----------------------------------------------------------------------------------------------

@@ -630,6 +630,7 @@ sub print_help
 Create a view.
 
 usage:
+ct1 mkview <name>
 ct1 mkview [-name <name>] [-raw] [-spec <file>] [-mcu <version>] [-arc archive.zip]
            [-dynamic | -snapshot] [-server] [-n] [-verbose]
 ct1 mkview [-h | -help | -v | -version]

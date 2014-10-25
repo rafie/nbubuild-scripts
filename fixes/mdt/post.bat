@@ -21,14 +21,15 @@ my $root = $ENV{NBU_BUILD_ROOT};
 add_local_admin();
 
 systemx("$root/sys/scripts/fixes/avaya-win7/fix.bat");
-systemx("$root/sys/scripts/fixes/clearcase/fix.bat");
+# systemx("$root/sys/scripts/fixes/clearcase/fix.bat");
+systema("ct1 wakeup");
 systemx("mount-nbu-vobs");
 
 exit(0);
 
 sub add_local_admin
 {
-print "\nAdding local admins...\n";
+	print "\nAdding local admins...\n";
 	systema("net user rvroot RvShos42 /add /passwordchg:yes /expires:never");
 	systema("net localgroup Administrators rvroot /add");
 
