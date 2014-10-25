@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+
+use strict;
+use File::Glob ':glob';
+
+my $sysroot = "";
+
+system("zypper install openssl-devel readline-devel") or die "error installing packages.\n";
+
+make_link("${sysroot}/lib",       "libgcc_s.so.[0-9]", "libgcc_s.so");
+make_link("${sysroot}/lib64",     "libgcc_s.so.[0-9]", "libgcc_s.so")
+make_link("${sysroot}/usr/lib",   "libstdc++.so.6",    "libstdc++.so");
+make_link("${sysroot}/usr/lib64", "libstdc++.so.6",    "libstdc++.so");
+exit(0);
+
+sub make_link
+{
+	my ($dir, $glob, $link) = @_;
+	
+	chdir($dir);
+	my @g = bsd_glob($glob);
+	die "not exactly one match for $glob" if $#g != 0;
+	die "$link exists.\n" if -f $link
+	symlink($g[0], $link);
+}

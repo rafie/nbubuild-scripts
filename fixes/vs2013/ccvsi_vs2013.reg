@@ -1,0 +1,49 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\VisualStudio\12.0\InstalledProducts]
+
+[HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\VisualStudio\12.0\InstalledProducts\VsPkg]
+"Package"="{fe83475a-0904-43c2-844e-4f7801a19682}"
+@="#100"
+"ProductDetails"="#102"
+"PID"="1.0"
+"LogoID"="#400"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\VisualStudio\12.0\Packages]
+
+[HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\VisualStudio\12.0\Packages\{fe83475a-0904-43c2-844e-4f7801a19682}]
+@="Vsip.ClearCaseSearch.VsPkg, ccvsisearchtoolwin, Version=1.0.3709.11687, Culture=neutral, PublicKeyToken=null"
+"InprocServer32"="C:\\Windows\\SYSTEM32\\MSCOREE.DLL"
+"Class"="Vsip.ClearCaseSearch.VsPkg"
+"CodeBase"="c:\\Program Files (x86)\\Common Files\\Rational\\ClearCase\\CCVSI\\bin\\ccvsisearchtoolwin.dll"
+
+[HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\VisualStudio\12.0\Packages\{fe83475a-0904-43c2-844e-4f7801a19682}\SatelliteDll]
+"Path"="c:\\Program Files (x86)\\Common Files\\Rational\\ClearCase\\CCVSI\\bin"
+"DllName"="ccvsisearchtoolwinUI.dll"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\VisualStudio\12.0\Packages]
+
+[HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\VisualStudio\12.0\Packages\{fe83475a-0904-43c2-844e-4f7801a19682}]
+"ID"=dword:00000001
+"MinEdition"="standard"
+"ProductVersion"="5.1"
+"ProductName"="rational clearcase search tool"
+"CompanyName"="IBM"
+
+[HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\VisualStudio\12.0\Menus]
+"{fe83475a-0904-43c2-844e-4f7801a19682}"=", 1000, 1"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\VisualStudio\12.0\Services]
+
+[HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\VisualStudio\12.0\Services\{0e3c490d-481b-4539-9ef4-8c754d058914}]
+@="{fe83475a-0904-43c2-844e-4f7801a19682}"
+"Name"="ClearCase VSI Search Tool Service"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\VisualStudio\12.0\ToolWindows]
+
+[HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\VisualStudio\12.0\ToolWindows\{015d4393-1739-44c5-95cc-dfcf89e07922}]
+@="{fe83475a-0904-43c2-844e-4f7801a19682}"
+"Name"="Vsip.ClearCaseSearch.CCSearchToolWindow"
+"Orientation"="Left"
+"Style"="Tabbed"
+"Window"="{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"

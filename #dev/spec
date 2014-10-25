@@ -1,0 +1,4 @@
+abc.sln=${name}.sln
+abc.csproj=${name}.csproj
+Program.cs
+Properties/AssemblyInfo.cs

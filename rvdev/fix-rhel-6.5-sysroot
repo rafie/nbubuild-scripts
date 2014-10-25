@@ -1,0 +1,5 @@
+#!/bin/bash
+
+yum -y install glibc glibc-devel libstdc++ libstdc++-devel gcc-c++ libgcc
+yum -y install ncurses ncurses-libs ncurses-devel openssl openssl-devel readline readline-devel
+perl fix-sysroot

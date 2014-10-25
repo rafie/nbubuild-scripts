@@ -1,0 +1,8 @@
+#!/bin/sh
+
+mkdir -p /tmp/sysroot
+cd /tmp/sysroot
+rm -f sysroot.tar
+find /lib /lib64 /usr/lib /usr/lib64 -maxdepth 1 \( -type f -or -type l \) -print0 | tar cf sysroot.tar --null -T -
+tar uf sysroot.tar /usr/include/*
+# cp -f sysroot.tar /mnt/hgfs/d/

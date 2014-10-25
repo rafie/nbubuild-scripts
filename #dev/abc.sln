@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 4.2.2.8818
+Project("${new_sln_uuid}") = "${name}", "${name}.csproj", "${new_vcproj_uuid}"
+EndProject
+Project("${new_sln_uuid}") = "DaNiet", "${NBU_BUILD_ROOT}\sys\scripts\dotnet\DaNiet\DaNiet.csproj", "{B81C293F-5106-4DCC-BD2F-085F28DADCFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		${new_vcproj_uuid}.Debug|x86.Build.0 = Debug|x86
+		${new_vcproj_uuid}.Debug|x86.ActiveCfg = Debug|x86
+		${new_vcproj_uuid}.Release|x86.Build.0 = Release|x86
+		${new_vcproj_uuid}.Release|x86.ActiveCfg = Release|x86
+		{B81C293F-5106-4DCC-BD2F-085F28DADCFE}.Debug|x86.Build.0 = Debug|x86
+		{B81C293F-5106-4DCC-BD2F-085F28DADCFE}.Debug|x86.ActiveCfg = Debug|x86
+		{B81C293F-5106-4DCC-BD2F-085F28DADCFE}.Release|x86.Build.0 = Release|x86
+		{B81C293F-5106-4DCC-BD2F-085F28DADCFE}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+EndGlobal
